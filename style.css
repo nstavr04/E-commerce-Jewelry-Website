@@ -1,9 +1,10 @@
-h1 {
+
+.conUsb{
     font-weight: 100;
 }
 
-b{
-    font-weight: 100;
+.conUsa {
+    color: white
 }
 
 .conUs {
@@ -41,6 +42,3 @@ padding-left: 10px; */
     height: 600px;
 }
 
-a {
-    color: white
-}
