@@ -1,53 +1,39 @@
-.small-img-group{
-
-display:flex;
-
-justify-content:space-between ;
-
-
+.text h6{
+font-size:100%;
+background:transparent;
 }
 
+.small-img-group {
+  display: flex;
 
-.small-img-col{
+  justify-content: space-between;
+}
 
-flex-basis: 24%;
+.small-img-col {
+  flex-basis: 24%;
 
-cursor:pointer;
-
-
-
+  cursor: pointer;
 }
 .sproduct select {
-
-display:block;
-padding:5px 10px;
-
+  display: block;
+  padding: 5px 10px;
 }
 
 .sproduct input {
-
-width:50px;
-height:40px;  
-padding-left:10px;
-font-size:16px;
-margin-right: 10px;
-
+  width: 50px;
+  height: 40px;
+  padding-left: 10px;
+  font-size: 16px;
+  margin-right: 10px;
 }
 
 .sproduct input:focus {
- outline:none;
+  outline: none;
 }
 
-.buy_button{
-   
-height:40px;  
-background:#804000 ;
-opacity:1;
-transition:0.3s all;
-
+.buy_button {
+  height: 40px;
+  background: #804000;
+  opacity: 1;
+  transition: 0.3s all;
 }
-
-
-
-
-
