@@ -1,0 +1,17 @@
+/*.container{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    margin-top: 4rem;
+    text-align: center;
+
+}*/
+h1{
+    font-size: 5rem;
+    font-weight: 700;
+    letter-spacing: 8px;
+}
+.image{
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+}
