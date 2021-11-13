@@ -3,21 +3,35 @@
 	width: 100%;
     padding-left: 50px;
 }
+h1{
+	color: #804000;
+}
 
 label{
 	font-size:22px;
-	padding-left: 50px;
+	
+	margin-left: 50px;
+	color: #804000;
 }
 
 p{
-	padding-left: 100px;
+	margin-left: 50px;
 }
 
  input{
-	width: 400px; 
-    padding-left: 50px;
+	width: 800px; 
+    margin-left: 50px;
+    background-color: #f3dbc3;
+	color: white;
 }
 
 button{
-    padding-left: 50px;
+    margin-left: 50px;
+    background-color: #804000;
+	color: white;
+}
+
+.tab {
+    display: inline-block;
+    margin-left: 50px;
 }
