@@ -31,9 +31,16 @@ background:transparent;
   outline: none;
 }
 
+.btn{
+  height: 40px;
+  opacity:1;
+  transition:0.3s all;
+}
+
 .buy_button {
   height: 40px;
-  background: #804000;
-  opacity: 1;
-  transition: 0.3s all;
+  color:white;
+  background:black;
+  opacity:1;
+  transition:0.3s all;
 }
