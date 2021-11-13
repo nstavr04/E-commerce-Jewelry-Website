@@ -1,8 +1,10 @@
 .leftside, .rightside {
-	height: 100vh;
+	height: 130vh;
 	width: 100%;
-    padding-left: 50px;
+
+	background-color: #eaccad;
 }
+
 h1{
 	color: #804000;
 }
@@ -18,19 +20,14 @@ p{
 }
 
  input{
-	width: 800px; 
+	width: 400px; 
     margin-left: 50px;
     background-color: #f3dbc3;
-	color: white;
+	color: black;
 }
 
 button{
     margin-left: 50px;
     background-color: #804000;
 	color: white;
-}
-
-.tab {
-    display: inline-block;
-    margin-left: 50px;
 }
