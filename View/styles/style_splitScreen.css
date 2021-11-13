@@ -1,11 +1,18 @@
 .leftside, .rightside {
 	height: 100vh;
-	width: 100%;
-	margin-left: 100px;
+	width: 100%
 }
 
 label{
-    margin-left: 80px;}
+	font-size:22px;
+	padding-left: 50px;
+}
 
 p{
-    margin-left: 80px;}
+	padding-left: 100px;
+}
+
+ input{
+	width: 400px; 
+    margin-left: 50px;
+}
