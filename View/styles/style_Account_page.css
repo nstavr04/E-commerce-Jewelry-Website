@@ -1,31 +1,31 @@
 .leftside, .rightside {
-	height: 130vh;
+	height: 135vh;
 	width: 100%;
-
-	background-color: #eaccad;
+	background-color: #4A2815;
 }
 
 h1{
-	color: #804000;
+	color: #f3dbc3;
 }
 
 label{
 	font-size:22px;
-	margin-left: 50px;
-	color: #804000;
+	margin-left: 75px;
+	color: #f3dbc3;
 }
 
 p{
-	margin-left: 50px;
+	margin-left: 75px;
 }
 
  input{
-	width: 400px; 
-    margin-left: 50px;
+	font-size:20px;
+	width: 500px; 
+    margin-left: 75px;
     background-color: #f3dbc3;
-	color: black;
+	color: #4A2815;
 }
 
-button{
-    margin-left: 50px;
+but{
+    margin-left: 75px;
 }
