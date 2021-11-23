@@ -40,10 +40,14 @@ function PrintResultSet($resultSet)
 }
 
 //Read Query
-$tsql = "SELECT * FROM CLIENTS ";
-
-echo "Executing query: " . $tsql . "<br/>";
+$tsql = "INSERT INTO CART (FirstName,	LastName,	CPassword,	Cid,	PostalCode,	CAddress,	District,	Email,	Phone,	CartID) VALUES (Sohaib, Nassar, hrhr, 005, 7060, aaa, larnaca, sss, 999, 9999)
+";
 $getResults = sqlsrv_query($conn, $tsql);
+$tsql2 = "INSERT INTO CLIENTS (FirstName,	LastName,	CPassword,	Cid,	PostalCode,	CAddress,	District,	Email,	Phone,	CartID) VALUES (Sohaib, Nassar, hrhr, 005, 7060, aaa, larnaca, sss, 999, 9999)
+";
+
+echo "Executing query: " . $tsql2 . "<br/>";
+$getResults = sqlsrv_query($conn, $tsql2);
 echo "Results:<br/>";
 if ($getResults == FALSE)
   die(FormatErrors(sqlsrv_errors()));
