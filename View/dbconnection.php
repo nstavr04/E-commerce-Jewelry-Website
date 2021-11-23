@@ -16,6 +16,8 @@ function OpenConnection()
         return $conn;
     };
 
+    $_SESSION['dbconnection'] = OpenConnection();
+
     function ReadData()
     {
         try
@@ -41,7 +43,6 @@ function OpenConnection()
         }
     }
 
-ReadData()
-
+    //ReadData()
 
 ?>

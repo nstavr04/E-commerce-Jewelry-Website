@@ -1,3 +1,12 @@
+<?php
+session_start();
+include 'dbconnection.php';
+
+
+
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -95,6 +104,7 @@
           <div class="leftside">
             
             <br>
+            <form>
             <h1 align="center">Login</h1>
             <hr>
 
@@ -119,11 +129,12 @@
           <div class ="rightside">
   
             <br>
+            <form action="" method="post">
             <h1 align="center">Sign Up</h1>
             <hr>
     
             <label for="email">Email: </label><br>
-            <input type="text" name="email" required>
+            <input type="email" name="email" required>
             <br><br>
         
             <label for="password">Password: </label><br>
@@ -143,7 +154,7 @@
               <br><br>
   
               <label for="phone">Phone Number: </label><br>
-              <input type="text" name="phone" required>
+              <input type="number" name="phone" required>
               <br><br>
   
               <label for="city">City: </label><br>
@@ -151,16 +162,54 @@
               <br><br>
   
               <label for="postalCode">Postal Code: </label><br>
-              <input type="text" name="postalCode" required>
+              <input type="number" name="postalCode" required>
               <br><br>
   
               <label for="address">Address: </label><br>
               <input type="text" name="address" required>
               <br><br>
   
-              <button type="signup-btn" class="btn btn-dark">Sign Up</button>
+              <button type="submit" class="btn btn-dark">Sign Up</button>
             </form>
   
+<?php
+
+if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
+  isset($_POST['Password']) && isset($_POST['confirmPassword']) &&
+  isset($_POST['postalCode']) && isset($_POST['address']) &&
+  isset($_POST['city']) && isset($_POST['email']) &&
+  isset($_POST['phone'])){
+
+    $FirstName = $_POST['firstName'];
+    $LastName = $_POST['lastName'];
+    $CPassword = $_POST['Password'];
+    $PostalCode = $_POST['postalCode'];
+    $CAddress = $_POST['address'];
+    $District = $_POST['city'];
+    $Email = $_POST['email'];
+    $Phone = $_POST['phone'];
+    $cartID = 9999;
+    $Cid = 1;
+
+
+    echo $FirstName;
+
+    $conn = $_SESSION['dbconnection'];
+
+    $query = "INSERT into CLIENTS 
+    (FirstName,LastName,CPassword,PostalCode,CAddress,District,Email,Phone,Cid,CartID)
+    VALUES ({$FirstName},{$LastName},{$CPassword},{$PostalCode},
+    {$CAddress},{$District},{$Email},{$Phone},{$Cid},{$cartID})";
+
+    $result = sqlsrv_query($conn,$query);
+
+    if($result)
+      echo "SUCCESS";
+
+}
+
+?>
+
           </div>
         </div>
         </div>
