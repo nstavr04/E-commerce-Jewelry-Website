@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'dbconnection.php';
+$_SESSION['LoggedInUser'] = False;
 
 
 
@@ -104,32 +105,60 @@ include 'dbconnection.php';
           <div class="leftside">
             
             <br>
-            <form>
+            <form method="POST">
             <h1 align="center">Login</h1>
             <hr>
 
             <label for="email">Email: </label><br>
             
-            <input type="text" name="email" required>
+            <input type="text" name="LoginEmail" required>
             <br><br>
         
             <label for="password">Password: </label><br>
-            <input type="password" name="Password" required>
+            <input type="password" name="LoginPassword" required>
             <br>
             <p class="forgot"><a href="#">Forgot Password?</a></p>
             <br>
         
-            <button type="login-btn" class="btn btn-dark">Login</button>
+            <button type="submit" class="btn btn-dark">Login</button>
             </form>
   
           </div>
         </div>
 
+        <?php
+
+if(isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])){
+
+    $LoginEmail = $_POST['LoginEmail'];
+    $LoginPassword = $_POST['LoginPassword'];
+
+    $conn = $_SESSION['dbconnection'];
+
+    $LoginQuery = "SELECT * FROM CLIENTS WHERE Email='$LoginEmail'
+    AND CPassword='$LoginPassword' ";
+
+    $LoginResult = sqlsrv_query($conn,$LoginQuery);
+
+    if(sqlsrv_num_rows($LoginResult) == 1){
+      echo "SUCCESSFULLY LOGGED IN";
+      $_SESSION['LoggedInUSER'] = TRUE;
+      header("Location: index.html");
+    }
+    else{
+      print_r(sqlsrv_errors());
+      echo "ERROR LOGGING IN";
+    }
+
+}
+
+?>
+
         <div class="col no-gutters">
           <div class ="rightside">
   
             <br>
-            <form action="" method="post">
+            <form action="" method="POST">
             <h1 align="center">Sign Up</h1>
             <hr>
     
@@ -191,9 +220,6 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
     $cartID = 9999;
     $Cid = 4;
 
-
-    echo $FirstName;
-
     $conn = $_SESSION['dbconnection'];
 
     $query = "INSERT into CLIENTS 
@@ -203,7 +229,8 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
 
     $result = sqlsrv_query($conn,$query);
 
-    print_r(sqlsrv_errors());
+    //Debugging
+    //print_r(sqlsrv_errors());
 
     if($result)
       echo "SUCCESS";
