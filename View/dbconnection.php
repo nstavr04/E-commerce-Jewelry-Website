@@ -13,6 +13,17 @@ function OpenConnection()
         if($conn == false)
             echo "Connection was unsuccessful";
 
+
+            $_SESSION["serverName"] = "universitycsdbnstavr04.database.windows.net";
+            $_SESSION["connectionOptions"] = array(
+                "Database" => "epl343ProjectTeam2",
+                "UID" => "nstavr04",
+                "PWD" => "admin1234!"
+            );
+            $conn = sqlsrv_connect($dbServerName, $connectionOptions);
+            $_SESSION["conn"]=$conn;
+
+
         return $conn;
     };
 

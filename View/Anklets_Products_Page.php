@@ -39,20 +39,46 @@ function PrintResultSet($resultSet)
   echo ("</table>");
 }
 
+function PrintResult($resultSet)
+{
+
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    foreach ($row as $col) {
+      echo (is_null($col) ? "Null" : $col);
+    }
+  }
+}
+function PrintResultFloatNumber($resultSet)
+{
+
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    foreach ($row as $col) {
+      echo number_format((float)$col, 2, '.', '');
+    }
+  }
+}
+
+
+
 //Read Query
-$tsql = "INSERT INTO CART (FirstName,	LastName,	CPassword,	Cid,	PostalCode,	CAddress,	District,	Email,	Phone,	CartID) VALUES (Sohaib, Nassar, hrhr, 005, 7060, aaa, larnaca, sss, 999, 9999)
-";
-$getResults = sqlsrv_query($conn, $tsql);
-$tsql2 = "INSERT INTO CLIENTS (FirstName,	LastName,	CPassword,	Cid,	PostalCode,	CAddress,	District,	Email,	Phone,	CartID) VALUES (Sohaib, Nassar, hrhr, 005, 7060, aaa, larnaca, sss, 999, 9999)
-";
+function queryP($Pid, $columName){
+  $tsql = "SELECT {$columName} FROM PRODUCTS WHERE Pid={$Pid}";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
 
-echo "Executing query: " . $tsql2 . "<br/>";
-$getResults = sqlsrv_query($conn, $tsql2);
-echo "Results:<br/>";
-if ($getResults == FALSE)
-  die(FormatErrors(sqlsrv_errors()));
+  // echo "Executing query: " . $tsql . "<br/>";
+  
+  // echo "Results:<br/>";
+  if ($getResults == FALSE){
+    die(FormatErrors(sqlsrv_errors()));
+  }
+  
+  return $getResults;
+  // PrintResult($getResults);
+  // return sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
+  // return $getResults;
+}
 
-PrintResultSet($getResults);
+
 
 function FormatErrors($errors)
 {
@@ -65,6 +91,7 @@ function FormatErrors($errors)
     echo "Message: " . $error['message'] . "";
   }
 }
+// number_format((float)$foo, 2, '.', '');                PRINT WITH 2 DECIMALS
 ?>
 <!doctype html>
 <html lang="en">
@@ -174,11 +201,11 @@ function FormatErrors($errors)
 
     <div class="row mx-auto container">
       <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3" src="https://images.pexels.com/photos/6774654/pexels-photo-6774654.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image of a ring" />
+      <a href="SingleProduct_Page.php">
+          <img class="img-fluid mb-3" src="https://images.pexels.com/photos/6774654/pexels-photo-6774654.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image of a ring"/>
         </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
+        <h5 class="p-name"><?php $res=queryP(9090, "PName"); PrintResult($res);?></h5>
+        <h4 class="p-price"><?php $res=queryP(9090, "Price"); PrintResultFloatNumber($res); ?></h4>
         <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.html';">Add to Cart</button>
       </div>
       <div class="product text-center col-lg-3 col-md-4 col-12">

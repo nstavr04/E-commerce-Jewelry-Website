@@ -1,3 +1,8 @@
+<?php 
+session_start();
+echo $_POST['UserC'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
