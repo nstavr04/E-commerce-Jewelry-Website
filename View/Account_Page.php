@@ -189,7 +189,7 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
     $Email = $_POST['email'];
     $Phone = $_POST['phone'];
     $cartID = 9999;
-    $Cid = 1;
+    $Cid = 4;
 
 
     echo $FirstName;
@@ -198,10 +198,12 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
 
     $query = "INSERT into CLIENTS 
     (FirstName,LastName,CPassword,PostalCode,CAddress,District,Email,Phone,Cid,CartID)
-    VALUES ({$FirstName},{$LastName},{$CPassword},{$PostalCode},
-    {$CAddress},{$District},{$Email},{$Phone},{$Cid},{$cartID})";
+    VALUES ('$FirstName','$LastName','$CPassword','$PostalCode',
+    '$CAddress','$District','$Email','$Phone','$Cid','$cartID')";
 
     $result = sqlsrv_query($conn,$query);
+
+    print_r(sqlsrv_errors());
 
     if($result)
       echo "SUCCESS";
