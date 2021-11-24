@@ -135,15 +135,20 @@ if(isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])){
 
     $conn = $_SESSION['dbconnection'];
 
-    $LoginQuery = "SELECT * FROM CLIENTS WHERE Email='$LoginEmail'
+    $LoginQuery = "SELECT CPassword,Email FROM CLIENTS WHERE Email='$LoginEmail'
     AND CPassword='$LoginPassword' ";
 
-    $LoginResult = sqlsrv_query($conn,$LoginQuery);
+    $LoginResult = sqlsrv_query($conn,$LoginQuery,array(),array("Scrollable"=>'keyset'));
+    $row = sqlsrv_num_rows($LoginResult);
 
-    if(sqlsrv_num_rows($LoginResult) == 1){
+    if($row == 1){
       echo "SUCCESSFULLY LOGGED IN";
       $_SESSION['LoggedInUSER'] = TRUE;
-      header("Location: index.html");
+      
+      echo "<script type='text/javascript'>";
+      echo "window.location.href = 'index.html'";
+      echo "</script>";
+
     }
     else{
       print_r(sqlsrv_errors());
