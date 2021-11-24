@@ -1,10 +1,6 @@
 <?php
 session_start();
 include 'dbconnection.php';
-$_SESSION['LoggedInUser'] = False;
-
-
-
 
 ?>
 
@@ -143,10 +139,10 @@ if(isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])){
 
     if($row == 1){
       echo "SUCCESSFULLY LOGGED IN";
-      $_SESSION['LoggedInUSER'] = TRUE;
+      $_SESSION['LoggedInUser'] = TRUE;
       
       echo "<script type='text/javascript'>";
-      echo "window.location.href = 'index.html'";
+      echo "window.location.href = 'index.php'";
       echo "</script>";
 
     }
