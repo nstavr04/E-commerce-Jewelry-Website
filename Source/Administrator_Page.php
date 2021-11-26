@@ -1,5 +1,12 @@
 <?php
   session_start();
+          // Prevent someone with no access to enter via URL
+          if(!isset($_SESSION['Admin']) || $_SESSION['Admin'] == FALSE) { 
+            echo '<h2 style="color:red">Access Denied</h2>'; 
+            session_unset();
+            session_destroy();
+            die('<meta http-equiv="refresh" content="2; url=index.php" />');
+            } 
 ?>
 
 
