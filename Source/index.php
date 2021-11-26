@@ -111,13 +111,46 @@
 
 
             <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
-            <ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
-              <li><a class="navbar-brand" href="ShoppingCart_Page.php">
+            
+            <?php
+
+              if($_SESSION['LoggedInUser'] == FALSE){
+                echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
+              <li><a class="navbar-brand" href="ShoppingCart_Page.php"
+              data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
                   </svg>
                 </a></li>
             </ul>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h6>Unable to access cart</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      To access the shopping cart you need to be logged in!
+                  </div>
+                </div>
+              </div>
+            </div>';
+              }
+              else if($_SESSION['LoggedInUser'] == TRUE){
+                echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
+                <li><a class="navbar-brand" href="ShoppingCart_Page.php">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                      <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
+                    </svg>
+                  </a></li>
+              </ul>';
+              }
+
+            ?>
+            
+
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-dark" type="submit">Search</button>

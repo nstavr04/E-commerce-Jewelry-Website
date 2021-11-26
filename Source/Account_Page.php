@@ -162,7 +162,6 @@ include 'dbconnection.php';
             <br>
             <p class="forgot"><a href="#">Forgot Password?</a></p>
             <br>
-        
             <button type="submit" class="btn btn-dark">Login</button>
             </form>
 
