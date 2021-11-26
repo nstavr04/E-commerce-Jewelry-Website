@@ -142,9 +142,10 @@
 
       <div>
         <h2 class="p-2"><center>Frequently Asked Questions </center></h2>
+        <center><hr style="width:600px; align-self:center"></center>
       </div>
 
-      <div id="accordion" style="margin-bottom: 22%;">
+      <div class="p-3"id="accordion" style="margin-bottom: 22%;">
         <div class="card">
           <div class="card-header" style="background-color: #4A2815;">
             <a class="btn" data-bs-toggle="collapse" href="#collapseOne">

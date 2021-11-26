@@ -136,7 +136,7 @@ session_start();
         </nav>
       </section>
 
-      <section id="About us">
+      <!-- <section id="About us">
        
        <div class= "container">
             <h1 >About Us  </h1>
@@ -151,7 +151,34 @@ session_start();
          <img src="https://images.pexels.com/photos/8306529/pexels-photo-8306529.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
          </div>
       </div>
-    </section>
+
+      </section> -->
+
+      <main style="margin: 5%;">
+        <div class="card" style="max-width: 1000px; font-size: 30px; font-weight: 100; line-height: 250%; margin: auto;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="https://images.pexels.com/photos/1454172/pexels-photo-1454172.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Girl wearing diamonds"
+                        class="img-fluid rounded-start" />
+                </div>
+                <div class="col-md-8 bg-dark text-white">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">About Us</h1>
+                        <p class=card-text align="center" >
+                            Pile of Jewelry is a jewelry and candle shop.<br>
+                            We are based in Nicosia, Cyprus. <br>
+                            All our jewelry  are handmade from stainless steel.<br>
+                            Our candles are also handmade.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    
+
+
     <section id="MainBottom" style="background-color: #eaccad;">
       <!-- Footer -->
       <footer class="text-center text-lg-start text-muted">
@@ -227,7 +254,7 @@ session_start();
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
-</html>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>
