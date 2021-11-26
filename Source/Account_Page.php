@@ -129,7 +129,7 @@ if(isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])){
     $LoginEmail = $_POST['LoginEmail'];
     $LoginPassword = $_POST['LoginPassword'];
 
-    $conn = $_SESSION['dbconnection'];
+    $conn = $_SESSION['conn'];
 
     $LoginQuery = "SELECT CPassword,Email FROM CLIENTS WHERE Email='$LoginEmail'
     AND CPassword='$LoginPassword' ";
