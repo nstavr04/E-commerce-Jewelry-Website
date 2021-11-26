@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'dbconnection.php';
 // Get the DB connection info from the session
 if (isset($_SESSION["serverName"]) && isset($_SESSION["connectionOptions"])) {
@@ -363,14 +364,16 @@ function FormatErrors($errors)
 
 
           echo '<div class="product text-center col-lg-3 col-md-4 col-12">';
-          echo '<form method="post" name="ProductClicked">';
-          echo '<input type="hidden" name="pidNum" value="' . $i . '" />';
+
+
+          echo '<form action="" method="POST">';
+          echo '<input type="hidden" name="ProductClicked" value="' . $i . '">';
 
           echo '<a href="SingleProduct_Page.php">';
 
-          echo  '<img class="img-fluid mb-3" src="' . $res . '" alt="Image of a ring"/>
+          echo  '<img class="img-fluid mb-3" src="' . $res . '" alt="Image of an anklet"/>
           </a>';
-      
+          // echo '<button type="submit" class="btn btn-dark">Sign Up</button>';
           echo '</form>';
 
           echo  '<h5 class="p-name">';

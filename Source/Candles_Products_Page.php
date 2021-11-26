@@ -1,3 +1,151 @@
+<?php
+include_once 'dbconnection.php';
+// Get the DB connection info from the session
+if (isset($_SESSION["serverName"]) && isset($_SESSION["connectionOptions"])) {
+  $serverName = $_SESSION["serverName"];
+  $connectionOptions = $_SESSION["connectionOptions"];
+  //Establishes the connection
+  $conn = $_SESSION["conn"];
+} else {
+  // Session is not correctly set! Redirecting to start page
+  session_unset();
+  session_destroy();
+  echo "Session is not correctly set! Clossing session and redirecting to start page in 3 seconds<br/>";
+  die('<meta http-equiv="refresh" content="3; url=index.php" />');
+  //header('Location: index.php');
+  //die();
+}
+
+function PrintResultSet($resultSet)
+{
+  echo ("<table><tr >");
+
+  foreach (sqlsrv_field_metadata($resultSet) as $fieldMetadata) {
+    echo ("<th>");
+    echo $fieldMetadata["Name"];
+    echo ("</th>");
+  }
+  echo ("</tr>");
+
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    echo ("<tr>");
+    foreach ($row as $col) {
+      echo ("<td>");
+      echo (is_null($col) ? "Null" : $col);
+      echo ("</td>");
+    }
+    echo ("</tr>");
+  }
+  echo ("</table>");
+}
+
+function PrintResult($resultSet)
+{
+
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    foreach ($row as $col) {
+      echo (is_null($col) ? "Null" : $col);
+    }
+  }
+}
+
+function PrintResultFloatNumber($resultSet)
+{
+
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    foreach ($row as $col) {
+      echo number_format((float)$col, 2, '.', '');
+    }
+  }
+}
+
+
+//Must give only 1 tuple 1 column
+function ReturnSingleResult($resultSet)
+{
+
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    foreach ($row as $col) {
+      return $col;
+      break;
+    }
+    break;
+  }
+}
+
+
+
+//Read Product
+function queryP($Pid, $columName)
+{
+  $tsql = "SELECT {$columName} FROM PRODUCTS WHERE Pid={$Pid}";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+
+  // echo "Executing query: " . $tsql . "<br/>";
+
+  // echo "Results:<br/>";
+  if ($getResults == FALSE) {
+    die(FormatErrors(sqlsrv_errors()));
+  }
+
+  return $getResults;
+  // PrintResult($getResults);
+  // return sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
+  // return $getResults;
+}
+
+
+//Read Product
+function queryMainUrl($Pid)
+{
+  $tsql = "SELECT Link FROM URLANDP WHERE Pid={$Pid} AND MAIN=1";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+
+  // echo "Executing query: " . $tsql . "<br/>";
+
+  // echo "Results:<br/>";
+  if ($getResults == FALSE) {
+    die(FormatErrors(sqlsrv_errors()));
+  }
+
+  return $getResults;
+  // PrintResult($getResults);
+  // return sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
+  // return $getResults;
+}
+
+
+
+//return the number of the products in our Products table
+function getProductsCount()
+{
+  $tsql = "SELECT COUNT(Pid) FROM PRODUCTS";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+  return $getResults;
+}
+
+
+function getCategory($pid)
+{
+  $tsql = "SELECT Category FROM PRODUCTS WHERE Pid={$pid}";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+  return $getResults;
+}
+
+
+
+function FormatErrors($errors)
+{
+  /* Display errors. */
+  echo "Error information: ";
+
+  foreach ($errors as $error) {
+    echo "SQLSTATE: " . $error['SQLSTATE'] . "";
+    echo "Code: " . $error['code'] . "";
+    echo "Message: " . $error['message'] . "";
+  }
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -146,86 +294,51 @@
     </div>
 
     <div class="row mx-auto container">
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3"
-            src="https://images.pexels.com/photos/6774654/pexels-photo-6774654.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3"
-            src="https://images.pexels.com/photos/3214241/pexels-photo-3214241.jpeg?cs=srgb&dl=pexels-agung-pandit-wiguna-3214241.jpg&fm=jpg"
-            alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3"
-            src="https://images.pexels.com/photos/5442468/pexels-photo-5442468.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3"
-            src="https://images.pexels.com/photos/5442455/pexels-photo-5442455.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3"
-            src="https://images.pexels.com/photos/8306527/pexels-photo-8306527.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3"
-            src="https://images.pexels.com/photos/6716446/pexels-photo-6716446.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
-            alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3"
-            src="https://images.pexels.com/photos/8891959/pexels-photo-8891959.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
-            alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3"
-            src="https://images.pexels.com/photos/8306529/pexels-photo-8306529.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
+
+    <?php
+      $temp = getProductsCount();
+      $numOfProducts = ReturnSingleResult($temp);
+
+
+
+      for ($i = 1; $i <= $numOfProducts; $i++) {
+        $temp = getCategory($i);
+        if (ReturnSingleResult($temp) == 'c') {
+
+          $temp = queryMainUrl($i);
+          $res = ReturnSingleResult($temp);
+
+
+          echo '<div class="product text-center col-lg-3 col-md-4 col-12">';
+
+
+          echo '<form action="" method="POST">';
+          echo '<input type="hidden" name="ProductClicked" value="' . $i . '">';
+
+          echo '<a href="SingleProduct_Page.php">';
+
+          echo  '<img class="img-fluid mb-3" src="' . $res . '" alt="Image of a candle"/>
+          </a>';
+          // echo '<button type="submit" class="btn btn-dark">Sign Up</button>';
+          echo '</form>';
+
+          echo  '<h5 class="p-name">';
+          $res = queryP($i, "PName");
+          PrintResult($res);
+          echo '</h5>';
+          echo '<h4 class="p-price">';
+          $res = queryP($i, "Price");
+          PrintResultFloatNumber($res);
+          echo '</h4>';
+          echo '<button type="buy-btn" class="btn btn-dark" onclick="window.location.href=\'ShoppingCart_Page.php\';">Add to Cart</button>
+      </div>';
+        }
+      }
+      ?>
+
+
+
+      
       <nav aria-label="...">
         <ul class="pagination mt-5">
           <li class="page-item disabled">

@@ -1,6 +1,10 @@
 <?php 
 session_start();
-echo $_POST['UserC'];
+// echo $_POST['UserC'];
+if (isset($_POST['ProductClicked']))
+  echo "it is set";
+echo $_POST['ProductClicked'];
+
 ?>
 
 <!DOCTYPE html>
