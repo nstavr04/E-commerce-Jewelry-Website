@@ -1,9 +1,7 @@
 <?php 
 session_start();
-// echo $_POST['UserC'];
-if (isset($_POST['ProductClicked']))
-  echo "it is set";
-echo $_POST['ProductClicked'];
+
+echo $_GET['ProductID'];
 
 ?>
 

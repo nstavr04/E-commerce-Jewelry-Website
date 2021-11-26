@@ -317,7 +317,7 @@ function FormatErrors($errors)
           echo '<form action="" method="POST">';
           echo '<input type="hidden" name="ProductClicked" value="' . $i . '">';
 
-          echo '<a href="SingleProduct_Page.php">';
+          echo "<a href='SingleProduct_Page.php?ProductID=$i'>";
 
           echo  '<img class="img-fluid mb-3" src="' . $res . '" alt="Image of an earring"/>
           </a>';

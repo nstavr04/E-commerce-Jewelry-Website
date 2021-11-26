@@ -366,15 +366,12 @@ function FormatErrors($errors)
           echo '<div class="product text-center col-lg-3 col-md-4 col-12">';
 
 
-          echo '<form action="" method="POST">';
-          echo '<input type="hidden" name="ProductClicked" value="' . $i . '">';
-
-          echo '<a href="SingleProduct_Page.php">';
+          echo "<a href='SingleProduct_Page.php?ProductID=$i'>";
+          // echo '<a href="SingleProduct_Page.php">';
 
           echo  '<img class="img-fluid mb-3" src="' . $res . '" alt="Image of an anklet"/>
           </a>';
-          // echo '<button type="submit" class="btn btn-dark">Sign Up</button>';
-          echo '</form>';
+
 
           echo  '<h5 class="p-name">';
           $res = queryP($i, "PName");
