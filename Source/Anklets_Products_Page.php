@@ -48,6 +48,7 @@ function PrintResult($resultSet)
     }
   }
 }
+
 function PrintResultFloatNumber($resultSet)
 {
 
@@ -59,23 +60,76 @@ function PrintResultFloatNumber($resultSet)
 }
 
 
+//Must give only 1 tuple 1 column
+function ReturnSingleResult($resultSet)
+{
 
-//Read Query
-function queryP($Pid, $columName){
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    foreach ($row as $col) {
+      return $col;
+      break;
+    }
+    break;
+  }
+}
+
+
+
+//Read Product
+function queryP($Pid, $columName)
+{
   $tsql = "SELECT {$columName} FROM PRODUCTS WHERE Pid={$Pid}";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
 
   // echo "Executing query: " . $tsql . "<br/>";
-  
+
   // echo "Results:<br/>";
-  if ($getResults == FALSE){
+  if ($getResults == FALSE) {
     die(FormatErrors(sqlsrv_errors()));
   }
-  
+
   return $getResults;
   // PrintResult($getResults);
   // return sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
   // return $getResults;
+}
+
+
+//Read Product
+function queryMainUrl($Pid)
+{
+  $tsql = "SELECT Link FROM URLANDP WHERE Pid={$Pid} AND MAIN=1";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+
+  // echo "Executing query: " . $tsql . "<br/>";
+
+  // echo "Results:<br/>";
+  if ($getResults == FALSE) {
+    die(FormatErrors(sqlsrv_errors()));
+  }
+
+  return $getResults;
+  // PrintResult($getResults);
+  // return sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
+  // return $getResults;
+}
+
+
+
+//return the number of the products in our Products table
+function getProductsCount()
+{
+  $tsql = "SELECT COUNT(Pid) FROM PRODUCTS";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+  return $getResults;
+}
+
+
+function getCategory($pid)
+{
+  $tsql = "SELECT Category FROM PRODUCTS WHERE Pid={$pid}";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+  return $getResults;
 }
 
 
@@ -109,7 +163,7 @@ function FormatErrors($errors)
 
 <body style="background-color: #f3dbc3;">
 
-  <!-- Completed -->
+  <!-- Header -->
   <section id="Nav-Bar" style="background-color: #f3dbc3;">
     <nav class="navbar navbar-expand-lg navbar-light ">
       <div class="container-fluid">
@@ -170,29 +224,121 @@ function FormatErrors($errors)
             <li class="nav-item">
               <a class="nav-link" href="FAQ_Page.html">FAQ</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Account_Page.php">Account</a>
-            </li>
-          </ul>
-          <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
-          <ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
-            <li><a class="navbar-brand" href="ShoppingCart_Page.php">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
-                  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
-                </svg>
-              </a></li>
-          </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-dark" type="submit">Search</button>
-          </form>
+            <?php
+
+
+
+
+
+            // Login or Account
+
+            if (!isset($_SESSION['LoggedInUser']) ||  $_SESSION['LoggedInUser'] == FALSE) {
+
+              echo "<li class='nav-item'>";
+
+              echo "<a class='nav-link' href='Account_Page.php'>Account</a>";
+
+              echo "</li>";
+
+              echo "</ul>";
+            } else if ($_SESSION['LoggedInUser'] == TRUE) {
+
+              echo "<li class='nav-item'>";
+
+              echo "<a class='nav-link' href='resetSession.php'>Log Out</a>";
+
+              echo "</li>";
+
+              echo "</ul>";
+            }
+
+            ?>
+
+            <?php
+
+
+
+            if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE) {
+
+              echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
+
+              <li><a class="navbar-brand" href="ShoppingCart_Page.php"
+
+              data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
+
+                  </svg>
+
+                </a></li>
+
+            </ul>
+
+
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+              <div class="modal-dialog">
+
+                <div class="modal-content">
+
+                  <div class="modal-header">
+
+                    <h6>Unable to access cart</h6>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                  </div>
+
+                  <div class="modal-body">
+
+                      To access the shopping cart you need to be logged in!
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>';
+            } else if ($_SESSION['LoggedInUser'] == TRUE) {
+
+              echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
+
+                <li><a class="navbar-brand" href="ShoppingCart_Page.php">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+
+                      <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
+
+                    </svg>
+
+                  </a></li>
+
+              </ul>';
+            }
+
+
+
+            ?>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-dark" type="submit">Search</button>
+            </form>
         </div>
       </div>
     </nav>
   </section>
 
-  <!-- Completed -->
+
+
+
+  <!-- Main Body -->
   <section id="Products" class="my-5 pb-5" style="background-color: #f3dbc3;">
+
+    <!-- Title -->
     <div class="container text-center mt-5 py-5">
       <h2 class="font-weight-bold">Our Anklets</h2>
       <hr>
@@ -200,70 +346,48 @@ function FormatErrors($errors)
     </div>
 
     <div class="row mx-auto container">
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-      <a href="SingleProduct_Page.php">
-          <img class="img-fluid mb-3" src="https://images.pexels.com/photos/6774654/pexels-photo-6774654.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image of a ring"/>
-        </a>
-        <h5 class="p-name"><?php $res=queryP(9090, "PName"); PrintResult($res);?></h5>
-        <h4 class="p-price"><?php $res=queryP(9090, "Price"); PrintResultFloatNumber($res); ?></h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3" src="https://images.pexels.com/photos/3214241/pexels-photo-3214241.jpeg?cs=srgb&dl=pexels-agung-pandit-wiguna-3214241.jpg&fm=jpg" alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3" src="https://images.pexels.com/photos/5442468/pexels-photo-5442468.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3" src="https://images.pexels.com/photos/5442455/pexels-photo-5442455.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3" src="https://images.pexels.com/photos/8306527/pexels-photo-8306527.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3" src="https://images.pexels.com/photos/6716446/pexels-photo-6716446.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3" src="https://images.pexels.com/photos/8891959/pexels-photo-8891959.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
-      <div class="product text-center col-lg-3 col-md-4 col-12">
-        <a href="SingleProduct_Page.html">
-          <img class="img-fluid mb-3" src="https://images.pexels.com/photos/8306529/pexels-photo-8306529.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Image of a ring" />
-        </a>
-        <h5 class="p-name">Indieco bracelet</h5>
-        <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
-      </div>
+
+
+      <?php
+      $temp = getProductsCount();
+      $numOfProducts = ReturnSingleResult($temp);
+
+
+
+      for ($i = 1; $i <= $numOfProducts; $i++) {
+        $temp = getCategory($i);
+        if (ReturnSingleResult($temp) == 'a') {
+
+          $temp = queryMainUrl($i);
+          $res = ReturnSingleResult($temp);
+
+
+          echo '<div class="product text-center col-lg-3 col-md-4 col-12">';
+          echo '<form method="post" name="ProductClicked">';
+          echo '<input type="hidden" name="pidNum" value="' . $i . '" />';
+
+           echo '<a href="SingleProduct_Page.php">';
+
+          echo  '<img class="img-fluid mb-3" src="' . $res . '" alt="Image of a ring"/>;
+          </a>';
+      
+          echo '</form>';
+
+          echo  '<h5 class="p-name">';
+          $res = queryP($i, "PName");
+          PrintResult($res);
+          echo '</h5>';
+          echo '<h4 class="p-price">';
+          $res = queryP($i, "Price");
+          PrintResultFloatNumber($res);
+          echo '</h4>';
+          echo '<button type="buy-btn" class="btn btn-dark" onclick="window.location.href=\'ShoppingCart_Page.php\';">Add to Cart</button>
+      </div>';
+        }
+      }
+      ?>
+
+
       <nav aria-label="...">
         <ul class="pagination mt-5">
           <li class="page-item disabled">
@@ -283,6 +407,11 @@ function FormatErrors($errors)
 
   </section>
 
+
+
+
+
+  <!-- Footer -->
   <section id="MainBottom" style="background-color: #eaccad;">
     <!-- Footer -->
     <footer class="text-center text-lg-start text-muted">
