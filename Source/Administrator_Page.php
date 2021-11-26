@@ -34,7 +34,7 @@
         <button class="nav-link" id="v-pills-customers-tab" data-bs-toggle="pill" data-bs-target="#v-pills-customers" type="button" role="tab" aria-controls="v-pills-customers" aria-selected="false">Customers</button>
         <button class="nav-link" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab" aria-controls="v-pills-orders" aria-selected="false">Orders</button>
         <br>
-        <a class="btn btn-dark" href="index.php" role="button">Log Out</a>
+        <a class="btn btn-dark" href="adminLogout.php" role="button">Log Out</a>
       </div>
 
       <div class="tab-content ms-5" id="v-pills-tabContent">

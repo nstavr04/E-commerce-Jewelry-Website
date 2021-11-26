@@ -8,8 +8,8 @@
 
 
 
-if(!isset($_SESSION['LoggedInUser']))
-  $_SESSION['LoggedInUser'] = FALSE;
+// if(!isset($_SESSION['LoggedInUser']))
+//   $_SESSION['LoggedInUser'] = FALSE;
 
 ?>
 <!doctype html>
@@ -99,7 +99,7 @@ if(!isset($_SESSION['LoggedInUser']))
               echo "</li>";
               echo "</ul>";
             } 
-            else {
+            else if($_SESSION['LoggedInUser'] == TRUE){
               echo "<li class='nav-item'>";
               echo "<a class='nav-link' href='resetSession.php'>Log Out</a>";
               echo "</li>";

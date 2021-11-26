@@ -102,8 +102,55 @@ include 'dbconnection.php';
             
             <br>
             <form method="POST">
-            <h1 align="center">Login</h1>
-            <hr>
+            <h1 align="left">Login</h1>
+            <hr>              
+
+            <?php
+
+      // Login
+
+      if(isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])){
+
+          $LoginEmail = $_POST['LoginEmail'];
+          $LoginPassword = $_POST['LoginPassword'];
+
+          $conn = $_SESSION['conn'];
+
+          $LoginQuery = "SELECT CPassword,Email FROM CLIENTS WHERE Email='$LoginEmail'
+          AND CPassword='$LoginPassword' ";
+
+          $LoginResult = sqlsrv_query($conn,$LoginQuery,array(),array("Scrollable"=>'keyset'));
+          $row = sqlsrv_num_rows($LoginResult);
+
+          if($row == 1){
+            
+            CheckResult($LoginResult);
+
+            $_SESSION['LoggedInUser'] = TRUE;
+            
+            // Admin credentials
+            if($_SESSION['Email'] == 'admin@email.com' && $_SESSION['CPassword'] == 12345){
+              $_SESSION['Admin'] = TRUE;
+              echo "<script type='text/javascript'>";
+              echo "window.location.href = 'Administrator_Page.php'";
+              echo "</script>";
+            }
+            else{
+              // Go to adminLogout
+              $_SESSION['Admin'] = FALSE;
+              echo "<script type='text/javascript'>";
+              echo "window.location.href = 'index.php'";
+              echo "</script>";
+            }
+          }
+          else{
+            print_r(sqlsrv_errors());
+            echo '<h5 align="left" class="mt-5 mb-4 text-muted">Wrong Credentials. Please Try again.</h4>';
+          }
+
+      }
+
+?>
 
             <label for="email">Email: </label><br>
             
@@ -118,51 +165,20 @@ include 'dbconnection.php';
         
             <button type="submit" class="btn btn-dark">Login</button>
             </form>
-  
+
           </div>
         </div>
 
-        <?php
 
-if(isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])){
-
-    $LoginEmail = $_POST['LoginEmail'];
-    $LoginPassword = $_POST['LoginPassword'];
-
-    $conn = $_SESSION['conn'];
-
-    $LoginQuery = "SELECT CPassword,Email FROM CLIENTS WHERE Email='$LoginEmail'
-    AND CPassword='$LoginPassword' ";
-
-    $LoginResult = sqlsrv_query($conn,$LoginQuery,array(),array("Scrollable"=>'keyset'));
-    $row = sqlsrv_num_rows($LoginResult);
-
-    if($row == 1){
-      echo "SUCCESSFULLY LOGGED IN";
-      $_SESSION['LoggedInUser'] = TRUE;
-      
-      echo "<script type='text/javascript'>";
-      echo "window.location.href = 'index.php'";
-      echo "</script>";
-
-    }
-    else{
-      print_r(sqlsrv_errors());
-      echo "ERROR LOGGING IN";
-    }
-
-}
-
-?>
 
         <div class="col no-gutters">
           <div class ="rightside">
   
             <br>
             <form action="" method="POST">
-            <h1 align="center">Sign Up</h1>
+            <h1 align="left">Sign Up</h1>
             <hr>
-    
+
             <label for="email">Email: </label><br>
             <input type="email" name="email" required>
             <br><br>
@@ -203,6 +219,8 @@ if(isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])){
             </form>
   
 <?php
+
+// Register Account
 
 if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
   isset($_POST['Password']) && isset($_POST['confirmPassword']) &&
@@ -313,3 +331,25 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>
+
+<?php
+
+    // Checking if the logged in person is an admin or not
+      function CheckResult($resultSet)
+      {
+          $cnt = 0;
+        while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+          foreach ($row as $col) {
+                          $cnt++;
+                        // numbers are based on the query above
+                      if($cnt==1)
+                        $_SESSION['CPassword'] = $col;
+                      if($cnt==2)
+                        $_SESSION['Email'] = $col; 
+            //echo (is_null($col) ? "Null" : $col);
+          }
+          $cnt = 0;
+        }
+      }
+
+?>
