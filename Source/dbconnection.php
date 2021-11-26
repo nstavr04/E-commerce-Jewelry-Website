@@ -22,7 +22,6 @@
             // $conn = sqlsrv_connect($dbServerName, $connectionOptions);
 
             $_SESSION["conn"]=$conn;
-            $_SESSION['dbconnection'] = $conn;
 
     //     return $conn;
     // };
