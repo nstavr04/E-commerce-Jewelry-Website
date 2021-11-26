@@ -366,9 +366,9 @@ function FormatErrors($errors)
           echo '<form method="post" name="ProductClicked">';
           echo '<input type="hidden" name="pidNum" value="' . $i . '" />';
 
-           echo '<a href="SingleProduct_Page.php">';
+          echo '<a href="SingleProduct_Page.php">';
 
-          echo  '<img class="img-fluid mb-3" src="' . $res . '" alt="Image of a ring"/>;
+          echo  '<img class="img-fluid mb-3" src="' . $res . '" alt="Image of a ring"/>
           </a>';
       
           echo '</form>';
