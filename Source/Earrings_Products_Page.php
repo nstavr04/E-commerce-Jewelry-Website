@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'dbconnection.php';
 // Get the DB connection info from the session
 if (isset($_SESSION["serverName"]) && isset($_SESSION["connectionOptions"])) {
