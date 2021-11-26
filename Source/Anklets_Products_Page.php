@@ -115,7 +115,7 @@ function FormatErrors($errors)
       <div class="container-fluid">
         <nav class="navbar navbar-light ">
           <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
               <img src="https://cdn-icons-png.flaticon.com/512/636/636499.png" alt="Diamond" width="30" height="30" class="d-inline-block align-text-top">
               Pile of Jewelry
             </a>
@@ -136,27 +136,27 @@ function FormatErrors($errors)
                     background-color: #eaccad;
                   }
                 </style>
-                <li><a class="dropdown-item" href="Bracelets_Products_Page.html">Bracelets</a></li>
+                <li><a class="dropdown-item" href="Bracelets_Products_Page.php">Bracelets</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="Necklaces_Products_Page.html">Necklaces</a></li>
+                <li><a class="dropdown-item" href="Necklaces_Products_Page.php">Necklaces</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="Rings_Products_Page.html">Rings</a></li>
+                <li><a class="dropdown-item" href="Rings_Products_Page.php">Rings</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="Earrings_Products_Page.html">Earrings</a></li>
+                <li><a class="dropdown-item" href="EarRings_Products_Page.php">Earrings</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="Anklets_Products_Page.html">Anklets</a></li>
+                <li><a class="dropdown-item" href="Anklets_Products_Page.php">Anklets</a></li>
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Candles_Products_Page.html">Candles</a>
+              <a class="nav-link" href="Candles_Products_Page.php">Candles</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="GiftGuide_Page.html">Gift Guide</a>
@@ -171,12 +171,12 @@ function FormatErrors($errors)
               <a class="nav-link" href="FAQ_Page.html">FAQ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Account_Page.html">Account</a>
+              <a class="nav-link" href="Account_Page.php">Account</a>
             </li>
           </ul>
           <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
           <ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
-            <li><a class="navbar-brand" href="ShoppingCart_Page.html">
+            <li><a class="navbar-brand" href="ShoppingCart_Page.php">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                   <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
                 </svg>
@@ -206,7 +206,7 @@ function FormatErrors($errors)
         </a>
         <h5 class="p-name"><?php $res=queryP(9090, "PName"); PrintResult($res);?></h5>
         <h4 class="p-price"><?php $res=queryP(9090, "Price"); PrintResultFloatNumber($res); ?></h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.html';">Add to Cart</button>
+        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
       </div>
       <div class="product text-center col-lg-3 col-md-4 col-12">
         <a href="SingleProduct_Page.html">
@@ -214,7 +214,7 @@ function FormatErrors($errors)
         </a>
         <h5 class="p-name">Indieco bracelet</h5>
         <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.html';">Add to Cart</button>
+        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
       </div>
       <div class="product text-center col-lg-3 col-md-4 col-12">
         <a href="SingleProduct_Page.html">
@@ -222,7 +222,7 @@ function FormatErrors($errors)
         </a>
         <h5 class="p-name">Indieco bracelet</h5>
         <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.html';">Add to Cart</button>
+        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
       </div>
       <div class="product text-center col-lg-3 col-md-4 col-12">
         <a href="SingleProduct_Page.html">
@@ -230,7 +230,7 @@ function FormatErrors($errors)
         </a>
         <h5 class="p-name">Indieco bracelet</h5>
         <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.html';">Add to Cart</button>
+        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
       </div>
       <div class="product text-center col-lg-3 col-md-4 col-12">
         <a href="SingleProduct_Page.html">
@@ -238,7 +238,7 @@ function FormatErrors($errors)
         </a>
         <h5 class="p-name">Indieco bracelet</h5>
         <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.html';">Add to Cart</button>
+        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
       </div>
       <div class="product text-center col-lg-3 col-md-4 col-12">
         <a href="SingleProduct_Page.html">
@@ -246,7 +246,7 @@ function FormatErrors($errors)
         </a>
         <h5 class="p-name">Indieco bracelet</h5>
         <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.html';">Add to Cart</button>
+        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
       </div>
       <div class="product text-center col-lg-3 col-md-4 col-12">
         <a href="SingleProduct_Page.html">
@@ -254,7 +254,7 @@ function FormatErrors($errors)
         </a>
         <h5 class="p-name">Indieco bracelet</h5>
         <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.html';">Add to Cart</button>
+        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
       </div>
       <div class="product text-center col-lg-3 col-md-4 col-12">
         <a href="SingleProduct_Page.html">
@@ -262,7 +262,7 @@ function FormatErrors($errors)
         </a>
         <h5 class="p-name">Indieco bracelet</h5>
         <h4 class="p-price">€15</h4>
-        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.html';">Add to Cart</button>
+        <button type="buy-btn" class="btn btn-dark" onclick="window.location.href='ShoppingCart_Page.php';">Add to Cart</button>
       </div>
       <nav aria-label="...">
         <ul class="pagination mt-5">
@@ -309,7 +309,7 @@ function FormatErrors($errors)
                 <a href="FAQ_Page.html" class="text-reset">FAQ</a>
               </p>
               <p>
-                <a href="Account_Page.html" class="text-reset">Account</a>
+                <a href="Account_Page.php" class="text-reset">Account</a>
               </p>
             </div>
             <!-- Grid column -->
@@ -343,7 +343,7 @@ function FormatErrors($errors)
       </section>
       <div class="text-left p-4" style="background-color: rgba(0, 0, 0, 0.05);">
         © 2021 Copyright:
-        <a class="text-reset fw-bold" href="index.html">Pile of Jewelry</a>
+        <a class="text-reset fw-bold" href="index.php">Pile of Jewelry</a>
       </div>
     </footer>
   </section>

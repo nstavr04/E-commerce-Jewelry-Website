@@ -33,7 +33,7 @@ if(!isset($_SESSION['LoggedInUser']))
       <div class="container-fluid">
         <nav class="navbar navbar-light ">
           <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
               <img src="https://cdn-icons-png.flaticon.com/512/636/636499.png" alt="Diamond" width="30" height="30" class="d-inline-block align-text-top">
               Pile of Jewelry
             </a>
@@ -54,27 +54,27 @@ if(!isset($_SESSION['LoggedInUser']))
                     background-color: #eaccad;
                   }
                 </style>
-                <li><a class="dropdown-item" href="Bracelets_Products_Page.html">Bracelets</a></li>
+                <li><a class="dropdown-item" href="Bracelets_Products_Page.php">Bracelets</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="Necklaces_Products_Page.html">Necklaces</a></li>
+                <li><a class="dropdown-item" href="Necklaces_Products_Page.php">Necklaces</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="Rings_Products_Page.html">Rings</a></li>
+                <li><a class="dropdown-item" href="Rings_Products_Page.php">Rings</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="Earrings_Products_Page.html">Earrings</a></li>
+                <li><a class="dropdown-item" href="Earrings_Products_Page.php">Earrings</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="Anklets_Products_Page.html">Anklets</a></li>
+                <li><a class="dropdown-item" href="Anklets_Products_Page.php">Anklets</a></li>
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Candles_Products_Page.html">Candles</a>
+              <a class="nav-link" href="Candles_Products_Page.php">Candles</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="GiftGuide_Page.html">Gift Guide</a>
@@ -112,7 +112,7 @@ if(!isset($_SESSION['LoggedInUser']))
 
             <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
             <ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
-              <li><a class="navbar-brand" href="ShoppingCart_Page.html">
+              <li><a class="navbar-brand" href="ShoppingCart_Page.php">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
                   </svg>
@@ -160,7 +160,7 @@ if(!isset($_SESSION['LoggedInUser']))
         <!-- First Img -->
         <div class="col">
           <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
-            <a href="index.html">
+            <a href="index.php">
               <img src="https://images.pexels.com/photos/5737277/pexels-photo-5737277.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="card-img-top" alt="Image of a ring" />
             </a>
           </div>
@@ -168,7 +168,7 @@ if(!isset($_SESSION['LoggedInUser']))
         <!-- Second Img -->
         <div class="col">
           <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
-            <a href="index.html">
+            <a href="index.php">
               <img src="https://images.pexels.com/photos/5370642/pexels-photo-5370642.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="card-img-top" alt="Image of a second ring" />
             </a>
           </div>
@@ -176,7 +176,7 @@ if(!isset($_SESSION['LoggedInUser']))
         <!-- Third Img -->
         <div class="col">
           <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
-            <a href="index.html">
+            <a href="index.php">
               <img src="https://images.pexels.com/photos/6625941/pexels-photo-6625941.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="card-img-top" alt="Image of earrings" />
             </a>
           </div>
@@ -192,7 +192,7 @@ if(!isset($_SESSION['LoggedInUser']))
         <!-- First Img -->
         <div class="col">
           <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
-            <a href="index.html">
+            <a href="index.php">
               <img src="https://images.pexels.com/photos/5370646/pexels-photo-5370646.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="card-img-top" alt="Image of a ring" />
             </a>
           </div>
@@ -200,7 +200,7 @@ if(!isset($_SESSION['LoggedInUser']))
         <!-- Second Img -->
         <div class="col">
           <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
-            <a href="index.html">
+            <a href="index.php">
               <img src="https://images.pexels.com/photos/1497307/pexels-photo-1497307.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="card-img-top" alt="Image of a second ring" />
             </a>
           </div>
@@ -208,7 +208,7 @@ if(!isset($_SESSION['LoggedInUser']))
         <!-- Third Img -->
         <div class="col">
           <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
-            <a href="index.html">
+            <a href="index.php">
               <img src="https://images.pexels.com/photos/5370640/pexels-photo-5370640.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="card-img-top" alt="Image of earrings" />
             </a>
           </div>
@@ -243,7 +243,7 @@ if(!isset($_SESSION['LoggedInUser']))
                 <a href="FAQ_Page.html" class="text-reset">FAQ</a>
               </p>
               <p>
-                <a href="Account_Page.html" class="text-reset">Account</a>
+                <a href="Account_Page.php" class="text-reset">Account</a>
               </p>
             </div>
             <!-- Grid column -->
@@ -277,7 +277,7 @@ if(!isset($_SESSION['LoggedInUser']))
       </section>
       <div class="text-left p-4" style="background-color: rgba(0, 0, 0, 0.05);">
         © 2021 Copyright:
-        <a class="text-reset fw-bold" href="index.html">Pile of Jewelry</a>
+        <a class="text-reset fw-bold" href="index.php">Pile of Jewelry</a>
       </div>
     </footer>
   </section>
