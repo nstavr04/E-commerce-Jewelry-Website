@@ -54,29 +54,77 @@
                       <a class="nav-link" href="Candles_Products_Page.php">Candles</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="GiftGuide_Page.html">Gift Guide</a>
+                      <a class="nav-link" href="GiftGuide_Page.php">Gift Guide</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="ContactUs_Page.html">Contact Us</a>
+                      <a class="nav-link" href="ContactUs_Page.php">Contact Us</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="AboutUs_Page.html">About Us</a>
+                      <a class="nav-link" href="AboutUs_Page.php">About Us</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="FAQ_Page.html">FAQ</a>
+                      <a class="nav-link" href="FAQ_Page.php">FAQ</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="Account_Page.php">Account</a>
-                    </li>
-                  </ul>
-                  <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
-                  <ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
-                    <li><a class="navbar-brand" href="ShoppingCart_Page.php">  
-                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
-                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
-                      </svg>
-                      </a></li>
-                </ul>
+                    <?php
+
+                
+            // Login or Account
+            if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE) {
+              echo "<li class='nav-item'>";
+              echo "<a class='nav-link' href='Account_Page.php'>Account</a>";
+              echo "</li>";
+              echo "</ul>";
+            } 
+            else if($_SESSION['LoggedInUser'] == TRUE){
+              echo "<li class='nav-item'>";
+              echo "<a class='nav-link' href='resetSession.php'>Log Out</a>";
+              echo "</li>";
+              echo "</ul>";
+            }
+
+
+            ?>
+
+
+            <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
+            
+            <?php
+
+              if(!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE){
+                echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
+              <li><a class="navbar-brand" href="ShoppingCart_Page.php"
+              data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
+                  </svg>
+                </a></li>
+            </ul>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h6>Unable to access cart</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      To access the shopping cart you need to be logged in!
+                  </div>
+                </div>
+              </div>
+            </div>';
+              }
+              else if($_SESSION['LoggedInUser'] == TRUE){
+                echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
+                <li><a class="navbar-brand" href="ShoppingCart_Page.php">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                      <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
+                    </svg>
+                  </a></li>
+              </ul>';
+              }
+
+            ?>
                   <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-dark" type="submit">Search</button>
@@ -187,13 +235,13 @@
                   Site Info
                 </h6>
                 <p>
-                  <a href="ContactUs_Page.html" class="text-reset">Contact Us</a>
+                  <a href="ContactUs_Page.php" class="text-reset">Contact Us</a>
                 </p>
                 <p>
-                  <a href="AboutUs_Page.html" class="text-reset">About Us</a>
+                  <a href="AboutUs_Page.php" class="text-reset">About Us</a>
                 </p>
                 <p>
-                  <a href="FAQ_Page.html" class="text-reset">FAQ</a>
+                  <a href="FAQ_Page.php" class="text-reset">FAQ</a>
                 </p>
                 <p>
                   <a href="Account_Page.php" class="text-reset">Account</a>

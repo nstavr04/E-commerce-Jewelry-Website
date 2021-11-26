@@ -159,16 +159,16 @@ function FormatErrors($errors)
               <a class="nav-link" href="Candles_Products_Page.php">Candles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="GiftGuide_Page.html">Gift Guide</a>
+              <a class="nav-link" href="GiftGuide_Page.php">Gift Guide</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="ContactUs_Page.html">Contact Us</a>
+              <a class="nav-link" href="ContactUs_Page.php">Contact Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="AboutUs_Page.html">About Us</a>
+              <a class="nav-link" href="AboutUs_Page.php">About Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="FAQ_Page.html">FAQ</a>
+              <a class="nav-link" href="FAQ_Page.php">FAQ</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Account_Page.php">Account</a>
@@ -300,13 +300,13 @@ function FormatErrors($errors)
                 Site Info
               </h6>
               <p>
-                <a href="ContactUs_Page.html" class="text-reset">Contact Us</a>
+                <a href="ContactUs_Page.php" class="text-reset">Contact Us</a>
               </p>
               <p>
-                <a href="AboutUs_Page.html" class="text-reset">About Us</a>
+                <a href="AboutUs_Page.php" class="text-reset">About Us</a>
               </p>
               <p>
-                <a href="FAQ_Page.html" class="text-reset">FAQ</a>
+                <a href="FAQ_Page.php" class="text-reset">FAQ</a>
               </p>
               <p>
                 <a href="Account_Page.php" class="text-reset">Account</a>
