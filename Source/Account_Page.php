@@ -284,9 +284,9 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
     $Email = $_POST['email'];
     $Phone = $_POST['phone'];
     $cartID = 9999;
-    $Cid = 4;
+    $Cid = 8;
 
-    $conn = $_SESSION['dbconnection'];
+    $conn = $_SESSION['conn'];
 
     $query = "INSERT into CLIENTS 
     (FirstName,LastName,CPassword,PostalCode,CAddress,District,Email,Phone,Cid,CartID)
