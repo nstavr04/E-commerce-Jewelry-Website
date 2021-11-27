@@ -1,7 +1,94 @@
 <?php 
 session_start();
+include_once 'dbconnection.php';
+// Get the DB connection info from the session
+if (isset($_SESSION["serverName"]) && isset($_SESSION["connectionOptions"])) {
+  $serverName = $_SESSION["serverName"];
+  $connectionOptions = $_SESSION["connectionOptions"];
+  //Establishes the connection
+  $conn = $_SESSION["conn"];
+} else {
+  // Session is not correctly set! Redirecting to start page
+  session_unset();
+  session_destroy();
+  echo "Session is not correctly set! Clossing session and redirecting to start page in 3 seconds<br/>";
+  die('<meta http-equiv="refresh" content="3; url=index.php" />');
+  //header('Location: index.php');
+  //die();
+}
+$ID = $_GET['ProductID'];
 
-echo $_GET['ProductID'];
+//Read Product
+function queryP($Pid, $columName)
+{
+  $tsql = "SELECT {$columName} FROM PRODUCTS WHERE Pid={$Pid}";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+
+  // echo "Executing query: " . $tsql . "<br/>";
+
+  // echo "Results:<br/>";
+  if ($getResults == FALSE) {
+    die(FormatErrors(sqlsrv_errors()));
+  }
+
+  return $getResults;
+  // PrintResult($getResults);
+  // return sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
+  // return $getResults;
+}
+
+function PrintResult($resultSet)
+{
+
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    foreach ($row as $col) {
+      echo (is_null($col) ? "Null" : $col);
+    }
+  }
+}
+
+function PrintResultFloatNumber($resultSet)
+{
+
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    foreach ($row as $col) {
+      echo number_format((float)$col, 2, '.', '');
+    }
+  }
+}
+
+//Must give only 1 tuple 1 column
+function ReturnSingleResult($resultSet)
+{
+
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    foreach ($row as $col) {
+      return $col;
+      break;
+    }
+    break;
+  }
+}
+
+//Read Product
+function queryMainUrl($Pid)
+{
+  $tsql = "SELECT Link FROM URLANDP WHERE Pid={$Pid} AND MAIN=1";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+
+  // echo "Executing query: " . $tsql . "<br/>";
+
+  // echo "Results:<br/>";
+  if ($getResults == FALSE) {
+    die(FormatErrors(sqlsrv_errors()));
+  }
+
+  return $getResults;
+  // PrintResult($getResults);
+  // return sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
+  // return $getResults;
+}
+
 
 ?>
 
@@ -152,6 +239,11 @@ echo $_GET['ProductID'];
         <div class="col-lg-5 col-md-12 col-12">
           <img
             class="img-fluid w-10 pb-1 rounded"
+            <?php
+            $temp = queryMainUrl($ID);
+            $res = ReturnSingleResult($temp);
+            echo 'src=" '.$res .'"';
+            ?>
             src="images/pexels-karolina-grabowska-4889719.jpg"
             alt="Pic"
             id="MainImg"
@@ -203,8 +295,17 @@ echo $_GET['ProductID'];
 
         <div class="text col-lg-6 col-md-12 col-12">
           <h6 class="blockquote">Home/Jewerly/Necklaces</h6>
-          <h3 class="py-4">Gold Necklace</h3>
-          <h2>€10</h2>
+          <?php
+          echo  '<h3 class="py-4"';
+          $res = queryP($ID, "PName");
+          ReturnSingleResult($res);
+          echo '</h3>';
+          //echo '<h3 class="py-4">Gold Necklace</h3>';
+          echo '<h2>';
+          $res = queryP($ID, "Price");
+          PrintResultFloatNumber($res); 
+          echo'</h2>';
+          ?>
           <select class="my-3" id="">
             <option>silver</option>
             <option>gold</option>
@@ -214,13 +315,12 @@ echo $_GET['ProductID'];
           <input type="number" value="1" min="1"/>
           <button type="buy-btn" class="btn btn-dark">Add to Cart</button>
           <h4 class="mt-5 mb-5">Product details</h4>
-          <span
-            >Jewellery or jewelry consists of decorative items worn for personal
-            adornment, such as brooches, rings, necklaces, earrings, pendants,
-            bracelets, and cufflinks. Jewellery may be attached to the body or
-            the clothes. From a western perspective, the term is restricted to
-            durable ornaments, excluding flowers for example.</span
-          >
+          <?php
+          echo '<span>';
+          $res = queryP($ID, "Descr");
+          PrintResult($res);
+          echo '</span>';
+          ?>
         </div>
       </div>
     </section>
