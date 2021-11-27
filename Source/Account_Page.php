@@ -479,8 +479,10 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
                         $_SESSION['CPassword'] = $col;
                       if($cnt==2)
                         $_SESSION['Email'] = $col;
-                      if($cnt==3)
+                      if($cnt==3){
                         $_SESSION['Cid'] = $col;
+                        $_SESSION['CartID'] = $col;
+                      }
             //echo (is_null($col) ? "Null" : $col);
           }
           $cnt = 0;

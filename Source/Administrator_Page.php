@@ -29,7 +29,7 @@
           <div class="container-fluid">
               <nav class="navbar navbar-light">
                   <div class="container-fluid">
-                    <a class="navbar-brand" href="index.php">
+                    <a class="navbar-brand">
                       <img src="https://cdn-icons-png.flaticon.com/512/636/636499.png" alt="Diamond" width="30" height="30" class="d-inline-block align-text-top">
                       Pile of Jewelry - Administrator Panel                      
                     </a>
@@ -46,10 +46,11 @@
         <button class="nav-link" id="v-pills-customers-tab" data-bs-toggle="pill" data-bs-target="#v-pills-customers" type="button" role="tab" aria-controls="v-pills-customers" aria-selected="false">Customers</button>
         <button class="nav-link" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab" aria-controls="v-pills-orders" aria-selected="false">Orders</button>
         <br>
-        <a class="btn btn-dark" href="adminLogout.php" role="button">Log Out</a>
+        <a class="btn btn-primary" href="adminLogout.php" role="button">Log Out</a>
       </div>
 
       <div class="tab-content ms-5" id="v-pills-tabContent">
+        
         <div class="tab-pane fade show active" id="v-pills-products" role="tabpanel" aria-labelledby="v-pills-products-tab">
 
           <h1 class="h2">Products</h1>
