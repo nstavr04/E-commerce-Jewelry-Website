@@ -163,7 +163,7 @@ include 'dbconnection.php';
 
           $conn = $_SESSION['conn'];
 
-          $LoginQuery = "SELECT CPassword,Email FROM CLIENTS WHERE Email='$LoginEmail'
+          $LoginQuery = "SELECT CPassword,Email,Cid FROM CLIENTS WHERE Email='$LoginEmail'
           AND CPassword='$LoginPassword' ";
 
           $LoginResult = sqlsrv_query($conn,$LoginQuery,array(),array("Scrollable"=>'keyset'));
@@ -327,24 +327,39 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
 
     $FirstName = $_POST['firstName'];
     $LastName = $_POST['lastName'];
-    $CPassword = $_POST['Password'];
-    $ConfirmPassword = $_POST['confirmPassword'];
+    $CPassword = md5($_POST['Password']);
+    $ConfirmPassword = md5($_POST['confirmPassword']);
     $PostalCode = $_POST['postalCode'];
     $CAddress = $_POST['address'];
     $District = $_POST['city'];
     $Email = $_POST['email'];
     $Phone = $_POST['phone'];
-    //Needs to be changed
-    $cartID = 9999;
 
     $conn = $_SESSION['conn'];
 
     $query = "INSERT into CLIENTS 
-    (FirstName,LastName,CPassword,PostalCode,CAddress,District,Email,Phone,CartID)
+    (FirstName,LastName,CPassword,PostalCode,CAddress,District,Email,Phone)
     VALUES ('$FirstName','$LastName','$CPassword','$PostalCode',
-    '$CAddress','$District','$Email','$Phone','$cartID')";
+    '$CAddress','$District','$Email','$Phone')";
 
     $result = sqlsrv_query($conn,$query);
+
+    // Obtaining the cid so we can assign it to the user cart ID
+    $query = "SELECT CPassword,Email,Cid FROM CLIENTS WHERE Email='$Email'";
+    $resultCheck = sqlsrv_query($conn,$query);
+
+    // Assigning cid, email and password in the session variables
+    CheckResult($resultCheck);
+
+    $Cid = $_SESSION['Cid'];
+
+    // Creating the cart in the cart table for that user
+    $query = "INSERT INTO CART (TotalCost,CartID) VALUES ('0','$Cid')";
+    $submitUpdate = sqlsrv_query($conn,$query);
+
+    // Updating the user in the user table with the correct cart id
+    $query = "UPDATE CLIENTS SET CartID='$Cid' WHERE Email='$Email'";
+    $submitUpdate = sqlsrv_query($conn,$query);
 
     //Debugging
     //print_r(sqlsrv_errors());
@@ -463,7 +478,9 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
                       if($cnt==1)
                         $_SESSION['CPassword'] = $col;
                       if($cnt==2)
-                        $_SESSION['Email'] = $col; 
+                        $_SESSION['Email'] = $col;
+                      if($cnt==3)
+                        $_SESSION['Cid'] = $col;
             //echo (is_null($col) ? "Null" : $col);
           }
           $cnt = 0;
