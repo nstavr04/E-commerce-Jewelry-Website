@@ -240,11 +240,27 @@ include 'dbconnection.php';
   
               <label for="firstName">First Name: </label><br>
               <input type="text" name="firstName" required>
-              <br><br>
+              <br>
+              <?php
+              if( isset($_POST['firstName'])){
+                $FirstName = $_POST['firstName'];
+                if( isset($_POST['firstName']) && !preg_match("/^[a-zA-Z ]*$/",$FirstName) ){
+                  $error_message = "Only letters and white space allowed!";
+                  echo "<h5> Only letters are allowed in First Name.</h5>";
+                } }
+              ?>
+              <br>
   
               <label for="lastName">Last Name: </label><br>
               <input type="text" name="lastName" required>
-              <br><br>
+              <br><?php
+              if( isset($_POST['lastName'])){
+                $LastName = $_POST['lastName'];
+                if( isset($_POST['lastName']) && !preg_match("/^[a-zA-Z ]*$/",$LastName) ){
+                  $error_message = "Only letters and white space allowed!";
+                  echo "<h5> Only letters are allowed in Last Name.</h5>";
+                } }
+              ?><br>
   
               <label for="phone">Phone Number: </label><br>
               <input type="number" name="phone" required>
@@ -252,7 +268,16 @@ include 'dbconnection.php';
   
               <label for="city">City: </label><br>
               <input type="text" name="city" required>
-              <br><br>
+              <br>
+              <?php
+              if( isset($_POST['city'])){
+                $District = $_POST['city'];
+                if( isset($_POST['city']) && !preg_match("/^[a-zA-Z ]*$/",$District) ){
+                  $error_message = "Only letters and white space allowed!";
+                  echo "<h5> Only letters are allowed in City.</h5>";
+                } }
+              ?>
+              <br>
   
               <label for="postalCode">Postal Code: </label><br>
               <input type="number" name="postalCode" required>
@@ -260,7 +285,14 @@ include 'dbconnection.php';
   
               <label for="address">Address: </label><br>
               <input type="text" name="address" required>
-              <br><br>
+              <br><?php
+              if( isset($_POST['address'])){
+                $CAddress = $_POST['address'];
+                if( isset($_POST['address']) && !preg_match("/^[a-zA-Z ]*$/",$CAddress) ){
+                  $error_message = "Only letters and white space allowed!";
+                  echo "<h5> Only letters are allowed in Address.</h5>";
+                } }
+              ?><br>
   
               <button type="submit" class="btn btn-dark">Sign Up</button>
             </form>
@@ -278,20 +310,21 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
     $FirstName = $_POST['firstName'];
     $LastName = $_POST['lastName'];
     $CPassword = $_POST['Password'];
+    $ConfirmPassword = $_POST['confirmPassword'];
     $PostalCode = $_POST['postalCode'];
     $CAddress = $_POST['address'];
     $District = $_POST['city'];
     $Email = $_POST['email'];
     $Phone = $_POST['phone'];
     $cartID = 9999;
-    $Cid = 8;
+
 
     $conn = $_SESSION['conn'];
 
     $query = "INSERT into CLIENTS 
-    (FirstName,LastName,CPassword,PostalCode,CAddress,District,Email,Phone,Cid,CartID)
+    (FirstName,LastName,CPassword,PostalCode,CAddress,District,Email,Phone,CartID)
     VALUES ('$FirstName','$LastName','$CPassword','$PostalCode',
-    '$CAddress','$District','$Email','$Phone','$Cid','$cartID')";
+    '$CAddress','$District','$Email','$Phone','$cartID')";
 
     $result = sqlsrv_query($conn,$query);
 
