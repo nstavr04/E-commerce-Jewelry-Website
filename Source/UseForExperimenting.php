@@ -1,6 +1,13 @@
 <?php
 session_start();
+if (isset($_POST['upvote']) && $_POST['upvote'] != "DONE"){
 echo $_POST['upvote']; 
+$_POST['upvote']="DONE";
+}
+
+if ( $_POST['upvote'] != "DONE")
+echo "skt";
+
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +24,10 @@ echo $_POST['upvote'];
 
 <form action="UseForExperimenting.php" method="post">
     <button type="submit" name="upvote" value="Upvote"></button>
+</form>
+
+<form action="UseForExperimenting.php" method="post">
+    <button type="submit" name="upvote" value="v2"></button>
 </form>
 
 <?php

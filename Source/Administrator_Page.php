@@ -1,5 +1,6 @@
 <?php
   session_start();
+  include 'dbconnection.php';
           // Prevent someone with no access to enter via URL
           if(!isset($_SESSION['Admin']) || $_SESSION['Admin'] == FALSE) { 
             echo '<h2 style="color:red">Access Denied</h2>'; 
@@ -41,12 +42,12 @@
 
     <div class="d-flex align-items-start pt-3">
       <!-- The sidebar setting each button to a corresponding content with a js plugin -->
-      <div class="nav flex-column nav-pills me-3 ms-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <div class="nav flex-column nav-pills text-info me-3 ms-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <button class="nav-link active" id="v-pills-products-tab" data-bs-toggle="pill" data-bs-target="#v-pills-products" type="button" role="tab" aria-controls="v-pills-products" aria-selected="true">Products</button>
         <button class="nav-link" id="v-pills-customers-tab" data-bs-toggle="pill" data-bs-target="#v-pills-customers" type="button" role="tab" aria-controls="v-pills-customers" aria-selected="false">Customers</button>
         <button class="nav-link" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab" aria-controls="v-pills-orders" aria-selected="false">Orders</button>
         <br>
-        <a class="btn btn-primary" href="adminLogout.php" role="button">Log Out</a>
+        <a class="btn btn-dark" href="adminLogout.php" role="button">Log Out</a>
       </div>
 
       <div class="tab-content ms-5" id="v-pills-tabContent">
@@ -61,7 +62,15 @@
                 <div class="card">
                     <h5 class="card-header">Total Products in the store</h5>
                     <div class="card-body">
-                      <h5 class="card-title">500</h5>
+
+                      <?php
+
+                          $conn = $_SESSION['conn'];
+                          $query = "SELECT COUNT(Pid) FROM PRODUCTS";
+                          $results = sqlsrv_query($conn,$query);
+                          $TotalPNum = ReturnSingleResult($results);
+                          echo '<h5 class="card-title">'.$TotalPNum.'</h5>';
+                      ?>      
                       <!-- Can add <p> tags etc here as nessessary or output a message etc -->
                     </div>
                   </div>
@@ -178,7 +187,14 @@
                 <div class="card">
                     <h5 class="card-header">Total registered customers in store</h5>
                     <div class="card-body">
-                      <h5 class="card-title">5023</h5>
+                    <?php
+
+                            $conn = $_SESSION['conn'];
+                            $query = "SELECT COUNT(Cid) FROM CLIENTS";
+                            $results = sqlsrv_query($conn,$query);
+                            $TotalCNum = ReturnSingleResult($results);
+                            echo '<h5 class="card-title">'.$TotalCNum.'</h5>';
+                            ?> 
                       <!-- Can add <p> tags etc here as nessessary or output a message etc -->
                     </div>
                   </div>
@@ -294,7 +310,14 @@
                 <div class="card">
                     <h5 class="card-header">Total orders made</h5>
                     <div class="card-body">
-                      <h5 class="card-title">12033</h5>
+                    <?php
+
+                          $conn = $_SESSION['conn'];
+                          $query = "SELECT COUNT(Oid) FROM ORDERS";
+                          $results = sqlsrv_query($conn,$query);
+                          $TotalONum = ReturnSingleResult($results);
+                          echo '<h5 class="card-title">'.$TotalONum.'</h5>';
+                          ?> 
                     </div>
                   </div>
             </div>
@@ -407,5 +430,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<?php
+
+//Must give only 1 tuple 1 column
+function ReturnSingleResult($resultSet){
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    foreach ($row as $col) {
+      return $col;
+      break;
+    }
+    break;
+  }
+}
+?>
 
     
