@@ -1,4 +1,5 @@
-<?php include('passreset_db.php'); ?>
+<?php 
+include('passreset_db.php'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +17,7 @@
 
 	<form action="login.php" method="post" style="text-align: center;">
 		<p>
-			We sent an email to  <b><?php echo $_GET['ResetEmail'] ?></b> to help you recover your account. 
+			We sent an email to help you recover your account. 
 		</p>
 	    <p>Please login into your email account and click on the link we sent to reset your password</p>
 	</form>

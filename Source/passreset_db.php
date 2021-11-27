@@ -11,17 +11,19 @@ $db = $_SESSION['conn'];
 // Send email to user to reset their password
 if(isset($_POST['reset-password'])){
     $ResetEmail = $_POST['ResetEmail'];
-    $query = "SELECT Email FROM CLIENTS WHERE Email='$ResetEmail' ";
-    $results = sqlsrv_query($db,$query);
+    $query = "SELECT Email FROM CLIENTS WHERE Email='$ResetEmail'";
+    $results = sqlsrv_query($db,$query,array(),array("Scrollable"=>'keyset'));
+
+    echo sqlsrv_num_rows($results);
 
     if(empty($ResetEmail)){
         array_push($errors,"Your email is required");
     }
-    else if(sqlsrv_num_rows($results)<=0){
+    else if(sqlsrv_num_rows($results)==0){
         array_push($errors,"Sorry, no user exists on our system with that email");
     }
 
-    echo $ResetEmail;
+    //echo $ResetEmail;
 
     // Generating a random token for the user
     $token = bin2hex(random_bytes(50));
@@ -36,11 +38,11 @@ if(isset($_POST['reset-password'])){
 
     $to = $ResetEmail;
     $subject = "Request to reset your password on Pile of Jewelry";
-    $msg = "Hello, click on this <a href=\"new_password.php?token=" . $token . "\">link</a> to reset your password on our site";
+    $msg = "Hello, click on this <a href=\"pass_reset.php?token=" . $token . "\">link</a> to reset your password on our site";
     $msg = wordwrap($msg,70);
     $headers = "From: pileofjewelry@gmail.com";
     mail($to, $subject, $msg, $headers);
-    header('location: pending.php?email=' . $ResetEmail);
+    header('location: pending_passReset.php?ResetEmail=' . $ResetEmail);
     }
 
 }
@@ -58,9 +60,11 @@ if(isset($_POST['reset-password'])){
         if ($new_pass !== $new_pass_c) array_push($errors, "Password do not match");
 
         if(count($errors) ==0){
-            $sql = "SELECT Email FROM PASSWORDRESET WHERE Token='$token' LIMIT 1";
+            $sql = "SELECT Email FROM PASSWORDRESET WHERE Token='$token'";
             $results = sqlsrv_query($db,$sql);
         }
+
+        $ResetEmail = ReturnSingleResult($results);
 
         if($ResetEmail){
             $new_pass = md5($new_pass);
@@ -69,6 +73,18 @@ if(isset($_POST['reset-password'])){
             header('location: index.php'); 
         }
 
+    }
+
+    function ReturnSingleResult($resultSet)
+    {
+
+    while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+        foreach ($row as $col) {
+        return $col;
+        break;
+        }
+        break;
+    }
     }
 
 ?>

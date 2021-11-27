@@ -1,5 +1,8 @@
 <?php
     include('passreset_db.php');
+
+    $_SESSION['token'] = $_GET['token'];
+
 ?>
 
 <!doctype html>
@@ -159,7 +162,7 @@
           <div class="leftside">
             
             <br>
-            <form action="new_password.php" method="POST">
+            <form action="pass_reset.php" method="POST">
             <h1 align="left">Reset Password</h1>
             <hr> 
 
