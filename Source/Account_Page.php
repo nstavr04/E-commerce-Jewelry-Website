@@ -208,7 +208,7 @@ include 'dbconnection.php';
             <label for="password">Password: </label><br>
             <input type="password" name="LoginPassword" required>
             <br>
-            <p class="forgot"><a href="#">Forgot Password?</a></p>
+            <p class="forgot"><a href="enter_email.php">Forgot Password?</a></p>
             <br>
             <button type="submit" class="btn btn-dark">Login</button>
             </form>
@@ -277,21 +277,21 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
 
     $FirstName = $_POST['firstName'];
     $LastName = $_POST['lastName'];
-    $CPassword = $_POST['Password'];
+    $CPassword = md5($_POST['Password']);
     $PostalCode = $_POST['postalCode'];
     $CAddress = $_POST['address'];
     $District = $_POST['city'];
     $Email = $_POST['email'];
     $Phone = $_POST['phone'];
+    //Needs to be changed
     $cartID = 9999;
-    $Cid = 8;
 
     $conn = $_SESSION['conn'];
 
     $query = "INSERT into CLIENTS 
-    (FirstName,LastName,CPassword,PostalCode,CAddress,District,Email,Phone,Cid,CartID)
+    (FirstName,LastName,CPassword,PostalCode,CAddress,District,Email,Phone,CartID)
     VALUES ('$FirstName','$LastName','$CPassword','$PostalCode',
-    '$CAddress','$District','$Email','$Phone','$Cid','$cartID')";
+    '$CAddress','$District','$Email','$Phone','$cartID')";
 
     $result = sqlsrv_query($conn,$query);
 
@@ -300,6 +300,9 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
 
     if($result)
       echo "SUCCESS";
+    else{
+      echo "ERROR. Signing up";
+    }
 
 }
 
