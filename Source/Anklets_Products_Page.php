@@ -17,6 +17,55 @@ if (isset($_SESSION["serverName"]) && isset($_SESSION["connectionOptions"])) {
   //die();
 }
 
+
+//Maybe this will be needed on a 'back' button
+$_SESSION['LastPageVisited'] = 'Anklets_Products_Page.php';
+
+//Adding to cart when necessary and then changing the post value so the product isnt added when user press F5
+if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
+  echo $_POST['ProductAdded'];
+  $userCid = $_SESSION['CartID'];
+  $pid = $_POST['ProductAdded'];
+  echo $userCid;
+
+
+  // get-select the price of the product added
+  $tsql = "SELECT Price FROM PRODUCTS WHERE Pid=$pid";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+  $price = ReturnSingleResult($getResults);
+
+  //this is checking if the product already exists in the CONTAINSOP table
+  $tsql = "SELECT ProductQuantity FROM CONTAINSOP WHERE Pid=$pid AND CartID=$userCid";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql, array(), array("Scrollable" => 'keyset'));
+  $row = sqlsrv_num_rows($getResults);
+  if ($row == 1) {
+    $currentQuantity = ReturnSingleResult($getResults);
+    $currentQuantity = $currentQuantity + 1;
+    //product is already in the cart so we need to update its quantity
+    $tsql = "UPDATE CONTAINSOP SET ProductQuantity=$currentQuantity WHERE CartID=$userCid AND Pid=$pid";
+    $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+  } else {
+    //Add it to the table
+    $tsql = "INSERT INTO CONTAINSOP (Pid,CartID,Price,ProductQuantity) VALUES($pid,$userCid,$price,1)";
+    $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+  }
+  //update the totalCostOf the cart
+  //get-select the total cost
+  $tsql = "SELECT TotalCost FROM CART WHERE CartID=$userCid";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+  $total = ReturnSingleResult($getResults);
+  $total = $total + $price;
+
+  //update the table value of the total cost
+  $tsql = "UPDATE CART SET TotalCost=$total WHERE CartID=$userCid";
+  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
+  print_r($getResults);
+
+
+
+  $_POST['ProductAdded'] = "DONE";
+}
+
 function PrintResultSet($resultSet)
 {
   echo ("<table><tr >");
@@ -381,11 +430,33 @@ function FormatErrors($errors)
           $res = queryP($i, "Price");
           PrintResultFloatNumber($res);
           echo '</h4>';
-          echo '<button type="buy-btn" class="btn btn-dark" onclick="window.location.href=\'ShoppingCart_Page.php\';">Add to Cart</button>
-      </div>';
+          echo '<form action="" method="post">';
+          // if the user is not logged in, the add to cart button wont work
+          if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE)
+            echo '<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" name="ProductAdded" value=' . $i . '>Add to Cart</button>';
+          else
+            echo '<button type="buy-btn" class="btn btn-dark" name="ProductAdded" value=' . $i . '>Add to Cart</button>';
+
+          echo '</form>';
+          echo '</div>';
         }
       }
       ?>
+
+      <!-- modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6>Unable to add product to cart!</h6>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              To modify the shopping cart you need to be logged in!
+            </div>
+          </div>
+        </div>
+      </div>
 
 
       <nav aria-label="...">

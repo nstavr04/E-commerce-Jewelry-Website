@@ -17,7 +17,7 @@ if (isset($_SESSION["serverName"]) && isset($_SESSION["connectionOptions"])) {
   //die();
 }
 
-
+//Maybe this will be needed on a 'back' button
 $_SESSION['LastPageVisited'] = 'Rings_Products_Page.php';
 
 //Adding to cart when necessary and then changing the post value so the product isnt added when user press F5
@@ -28,42 +28,31 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
   echo $userCid;
 
 
-
-
-
-
   // get-select the price of the product added
   $tsql = "SELECT Price FROM PRODUCTS WHERE Pid=$pid";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
-  print_r($getResults);
   $price = ReturnSingleResult($getResults);
 
   //this is checking if the product already exists in the CONTAINSOP table
   $tsql = "SELECT ProductQuantity FROM CONTAINSOP WHERE Pid=$pid AND CartID=$userCid";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql, array(), array("Scrollable" => 'keyset'));
-  print_r($getResults);
   $row = sqlsrv_num_rows($getResults);
   if ($row == 1) {
-    echo 'row = 1';
     $currentQuantity = ReturnSingleResult($getResults);
     $currentQuantity = $currentQuantity + 1;
     //product is already in the cart so we need to update its quantity
     $tsql = "UPDATE CONTAINSOP SET ProductQuantity=$currentQuantity WHERE CartID=$userCid AND Pid=$pid";
     $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
-    print_r($getResults);
   } else {
     //Add it to the table
     $tsql = "INSERT INTO CONTAINSOP (Pid,CartID,Price,ProductQuantity) VALUES($pid,$userCid,$price,1)";
     $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
-    print_r($getResults);
   }
   //update the totalCostOf the cart
   //get-select the total cost
   $tsql = "SELECT TotalCost FROM CART WHERE CartID=$userCid";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   $total = ReturnSingleResult($getResults);
-  print_r($getResults);
-
   $total = $total + $price;
 
   //update the table value of the total cost
@@ -76,11 +65,7 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
   $_POST['ProductAdded'] = "DONE";
 }
 
-function insertIntoCart($pid)
-{
-  $tsql = "INSERT INTO TABLE CART";
-  $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
-}
+
 
 
 function PrintResultSet($resultSet)
@@ -398,15 +383,8 @@ function FormatErrors($errors)
           PrintResultFloatNumber($res);
           echo '</h4>';
 
-
-
-          // echo "<a href='AddingToCart.php?ProductID=$i'>";
-          // echo '<button type="buy-btn" class="btn btn-dark">Add to Cart</button>';
-          // echo '</a>';
-
-
           echo '<form action="" method="post">';
-          // echo '<button type="buy-btn" class="btn btn-dark" onclick="window.location.href=\'ShoppingCart_Page.php\';">Add to Cart</button>';
+          // if the user is not logged in, the add to cart button wont work
           if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE)
             echo '<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" name="ProductAdded" value=' . $i . '>Add to Cart</button>';
           else
