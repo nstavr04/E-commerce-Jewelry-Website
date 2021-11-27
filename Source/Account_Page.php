@@ -235,6 +235,15 @@ include 'dbconnection.php';
             <label for="confirmPassword">Confirm Password: </label><br>
               <input class="form-control" type="password" name="confirmPassword" required>
               <br>
+              <?php
+              if( isset($_POST['Password']) && isset($_POST['confirmPassword'])){
+                $CPassword = $_POST['Password'];
+                $ConfirmPassword = $_POST['confirmPassword'];
+                if( isset($_POST['Password']) && isset($_POST['confirmPassword']) && $CPassword != $ConfirmPassword){
+                  $error_message = "Passwords do not match";
+                  echo "<h5> Passwords do not match.</h5>";
+                } }
+              ?>
   
               <label for="firstName">First Name: </label><br>
               <input class="form-control" type="text" name="firstName" required>
