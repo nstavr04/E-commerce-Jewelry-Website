@@ -38,7 +38,7 @@ if(isset($_POST['reset-password'])){
 
     $to = $ResetEmail;
     $subject = "Request to reset your password on Pile of Jewelry";
-    $msg = "Hello, click on this <a href=\"pass_reset.php?token=" . $token . "\">link</a> to reset your password on our site";
+    $msg = "Hello, click on this http://localhost:8081/pass_reset.php?token=" . $token . " to reset your password on our site";
     $msg = wordwrap($msg,70);
     $headers = "From: pileofjewelry@gmail.com";
     mail($to, $subject, $msg, $headers);

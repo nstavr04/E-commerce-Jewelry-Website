@@ -159,7 +159,7 @@ include 'dbconnection.php';
       if(isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])){
 
           $LoginEmail = $_POST['LoginEmail'];
-          $LoginPassword = $_POST['LoginPassword'];
+          $LoginPassword = md5($_POST['LoginPassword']);
 
           $conn = $_SESSION['conn'];
 
@@ -176,7 +176,7 @@ include 'dbconnection.php';
             $_SESSION['LoggedInUser'] = TRUE;
             
             // Admin credentials
-            if($_SESSION['Email'] == 'admin@email.com' && $_SESSION['CPassword'] == 12345){
+            if($_SESSION['Email'] == 'admin@email.com' && $_SESSION['CPassword'] == md5(12345)){
               $_SESSION['Admin'] = TRUE;
               echo "<script type='text/javascript'>";
               echo "window.location.href = 'Administrator_Page.php'";
@@ -207,7 +207,7 @@ include 'dbconnection.php';
             <label for="password">Password: </label><br>
             <input class="form-control" type="password" name="LoginPassword" required>
           
-            <p class="forgot"><a href="#">Forgot Password?</a></p>
+            <p class="forgot"><a href="enter_email.php">Forgot Password?</a></p>
             <br>
             <button type="submit" class="btn btn-dark">Login</button>
             </form>
