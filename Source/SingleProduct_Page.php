@@ -296,9 +296,9 @@ function queryMainUrl($Pid)
         <div class="text col-lg-6 col-md-12 col-12">
           <h6 class="blockquote">Home/Jewerly/Necklaces</h6>
           <?php
-          echo  '<h3 class="py-4"';
+          echo  '<h3 class="py-4">';
           $res = queryP($ID, "PName");
-          ReturnSingleResult($res);
+          echo ReturnSingleResult($res);
           echo '</h3>';
           //echo '<h3 class="py-4">Gold Necklace</h3>';
           echo '<h2>';
