@@ -202,21 +202,19 @@ include 'dbconnection.php';
 
             <label for="email">Email: </label><br>
             
-            <input type="text" name="LoginEmail" required>
-            <br><br>
+            <input class="form-control" type="text" name="LoginEmail" required>
+            <br>
         
             <label for="password">Password: </label><br>
-            <input type="password" name="LoginPassword" required>
-            <br>
-            <p class="forgot"><a href="enter_email.php">Forgot Password?</a></p>
+            <input class="form-control" type="password" name="LoginPassword" required>
+          
+            <p class="forgot"><a href="#">Forgot Password?</a></p>
             <br>
             <button type="submit" class="btn btn-dark">Login</button>
             </form>
 
           </div>
         </div>
-
-
 
         <div class="col no-gutters">
           <div class ="rightside">
@@ -226,20 +224,21 @@ include 'dbconnection.php';
             <h1 align="left">Sign Up</h1>
             <hr>
 
+            
             <label for="email">Email: </label><br>
-            <input type="email" name="email" required>
-            <br><br>
+            <input class="form-control" type="email" name="email" required>
+            <br>
         
             <label for="password">Password: </label><br>
-            <input type="password" name="Password" required>
-            <br><br>
+            <input class="form-control" type="password" name="Password" required>
+            <br>
   
             <label for="confirmPassword">Confirm Password: </label><br>
-              <input type="password" name="confirmPassword" required>
-              <br><br>
+              <input class="form-control" type="password" name="confirmPassword" required>
+              <br>
   
               <label for="firstName">First Name: </label><br>
-              <input type="text" name="firstName" required>
+              <input class="form-control" type="text" name="firstName" required>
               <br>
               <?php
               if( isset($_POST['firstName'])){
@@ -249,10 +248,9 @@ include 'dbconnection.php';
                   echo "<h5> Only letters are allowed in First Name.</h5>";
                 } }
               ?>
-              <br>
   
               <label for="lastName">Last Name: </label><br>
-              <input type="text" name="lastName" required>
+              <input class="form-control" type="text" name="lastName" required>
               <br><?php
               if( isset($_POST['lastName'])){
                 $LastName = $_POST['lastName'];
@@ -260,15 +258,27 @@ include 'dbconnection.php';
                   $error_message = "Only letters and white space allowed!";
                   echo "<h5> Only letters are allowed in Last Name.</h5>";
                 } }
-              ?><br>
+              ?>
   
               <label for="phone">Phone Number: </label><br>
-              <input type="number" name="phone" required>
-              <br><br>
-  
-              <label for="city">City: </label><br>
-              <input type="text" name="city" required>
+              <input class="form-control" type="number" name="phone" required>
+              <?php
+              if( isset($_POST['phone'])){
+                $Phone = $_POST['phone'];
+                if( isset($_POST['phone']) && (strlen ($Phone) != 8) ){
+                  $error_message = "Phone number must be 8 digits long.";
+                  echo "<h5> Phone number must be 8 digits long.</h5>";
+                } }
+              ?>
               <br>
+                
+              <label for="city">City: </label><br>
+              <select name="city" class="form-select form-select-lg mb-3" aria-label="City" required>
+                <option value="Nicosia">Nicosia</option>
+                <option value="Limassol">Limassol</option>
+                <option value="Larnaca">Larnaca</option>
+                <option value="Paphos">Paphos</option>
+              </select>
               <?php
               if( isset($_POST['city'])){
                 $District = $_POST['city'];
@@ -277,14 +287,13 @@ include 'dbconnection.php';
                   echo "<h5> Only letters are allowed in City.</h5>";
                 } }
               ?>
+              
+              <label for="postalCode">Postal Code: </label><br>
+              <input class="form-control" type="number" name="postalCode" required>
               <br>
   
-              <label for="postalCode">Postal Code: </label><br>
-              <input type="number" name="postalCode" required>
-              <br><br>
-  
               <label for="address">Address: </label><br>
-              <input type="text" name="address" required>
+              <input class="form-control" type="text" name="address" required>
               <br><?php
               if( isset($_POST['address'])){
                 $CAddress = $_POST['address'];
@@ -292,7 +301,8 @@ include 'dbconnection.php';
                   $error_message = "Only letters and white space allowed!";
                   echo "<h5> Only letters are allowed in Address.</h5>";
                 } }
-              ?><br>
+              ?>
+
   
               <button type="submit" class="btn btn-dark">Sign Up</button>
             </form>
