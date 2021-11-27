@@ -238,7 +238,7 @@ include 'dbconnection.php';
                 }
                 else  if(sqlsrv_has_rows($resultCheck) > 0){ 
                   $error_message = "There is already an account using this email address.";
-                  echo "<h5> There is already an account using this email address.</h5>";
+                  print "<h5> There is already an account using this email address.</h5>";
                 } 
               }
               ?>
@@ -256,7 +256,7 @@ include 'dbconnection.php';
                 $ConfirmPassword = $_POST['confirmPassword'];
                 if( isset($_POST['Password']) && isset($_POST['confirmPassword']) && $CPassword != $ConfirmPassword){
                   $error_message = "Passwords do not match";
-                  echo "<h5> Passwords do not match.</h5>";
+                  print "<h5> Passwords do not match.</h5>";
                 } }
               ?>
               <br>
@@ -268,7 +268,7 @@ include 'dbconnection.php';
                 $FirstName = $_POST['firstName'];
                 if( isset($_POST['firstName']) && !preg_match("/^[a-zA-Z ]*$/",$FirstName) ){
                   $error_message = "Only letters and white space allowed!";
-                  echo "<h5> Only letters are allowed in First Name.</h5>";
+                  print  "<h5> Only letters are allowed in First Name.</h5>";
                 } }
               ?><br>
   
@@ -279,7 +279,7 @@ include 'dbconnection.php';
                 $LastName = $_POST['lastName'];
                 if( isset($_POST['lastName']) && !preg_match("/^[a-zA-Z ]*$/",$LastName) ){
                   $error_message = "Only letters and white space allowed!";
-                  echo "<h5> Only letters are allowed in Last Name.</h5>";
+                  print  "<h5> Only letters are allowed in Last Name.</h5>";
                 } }
               ?><br>
   
@@ -290,7 +290,7 @@ include 'dbconnection.php';
                 $Phone = $_POST['phone'];
                 if( isset($_POST['phone']) && (strlen ($Phone) != 8) ){
                   $error_message = "Phone number must be 8 digits long.";
-                  echo "<h5> Phone number must be 8 digits long.</h5>";
+                  print  "<h5> Phone number must be 8 digits long.</h5>";
                 } }
               ?>
               <br>
@@ -307,7 +307,7 @@ include 'dbconnection.php';
                 $District = $_POST['city'];
                 if( isset($_POST['city']) && !preg_match("/^[a-zA-Z ]*$/",$District) ){
                   $error_message = "Only letters and white space allowed!";
-                  echo "<h5> Only letters are allowed in City.</h5>";
+                  print  "<h5> Only letters are allowed in City.</h5>";
                 } }
               ?><br>
               
@@ -322,7 +322,7 @@ include 'dbconnection.php';
                 $CAddress = $_POST['address'];
                 if( isset($_POST['address']) && !preg_match("/^[a-zA-Z ]*$/",$CAddress) ){
                   $error_message = "Only letters and white space allowed!";
-                  echo "<h5> Only letters are allowed in Address.</h5>";
+                  print  "<h5> Only letters are allowed in Address.</h5>";
                 } }
               ?><br>
 
