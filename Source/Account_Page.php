@@ -226,15 +226,30 @@ include 'dbconnection.php';
             
             <label for="email">Email: </label><br>
             <input class="form-control" type="email" name="email" required>
+            <?php
+              if( isset($_POST['email']) ){
+                $Email = $_POST['email'];
+               
+                $conn = $_SESSION['conn'];
+                $query = "SELECT Email FROM CLIENTS WHERE Email='$Email'";
+                $resultCheck = sqlsrv_query($conn,$query);
+                if(! $resultCheck ) {
+                    echo "Could not get data";
+                }
+                else  if(sqlsrv_has_rows($resultCheck) > 0){ 
+                  $error_message = "There is already an account using this email address.";
+                  echo "<h5> There is already an account using this email address.</h5>";
+                } 
+              }
+              ?>
             <br>
-        
+   
             <label for="password">Password: </label><br>
             <input class="form-control" type="password" name="Password" required>
             <br>
   
             <label for="confirmPassword">Confirm Password: </label><br>
               <input class="form-control" type="password" name="confirmPassword" required>
-              <br>
               <?php
               if( isset($_POST['Password']) && isset($_POST['confirmPassword'])){
                 $CPassword = $_POST['Password'];
@@ -244,10 +259,10 @@ include 'dbconnection.php';
                   echo "<h5> Passwords do not match.</h5>";
                 } }
               ?>
+              <br>
   
               <label for="firstName">First Name: </label><br>
               <input class="form-control" type="text" name="firstName" required>
-              <br>
               <?php
               if( isset($_POST['firstName'])){
                 $FirstName = $_POST['firstName'];
@@ -255,18 +270,18 @@ include 'dbconnection.php';
                   $error_message = "Only letters and white space allowed!";
                   echo "<h5> Only letters are allowed in First Name.</h5>";
                 } }
-              ?>
+              ?><br>
   
               <label for="lastName">Last Name: </label><br>
               <input class="form-control" type="text" name="lastName" required>
-              <br><?php
+              <?php
               if( isset($_POST['lastName'])){
                 $LastName = $_POST['lastName'];
                 if( isset($_POST['lastName']) && !preg_match("/^[a-zA-Z ]*$/",$LastName) ){
                   $error_message = "Only letters and white space allowed!";
                   echo "<h5> Only letters are allowed in Last Name.</h5>";
                 } }
-              ?>
+              ?><br>
   
               <label for="phone">Phone Number: </label><br>
               <input class="form-control" type="number" name="phone" required>
@@ -294,7 +309,7 @@ include 'dbconnection.php';
                   $error_message = "Only letters and white space allowed!";
                   echo "<h5> Only letters are allowed in City.</h5>";
                 } }
-              ?>
+              ?><br>
               
               <label for="postalCode">Postal Code: </label><br>
               <input class="form-control" type="number" name="postalCode" required>
@@ -309,7 +324,7 @@ include 'dbconnection.php';
                   $error_message = "Only letters and white space allowed!";
                   echo "<h5> Only letters are allowed in Address.</h5>";
                 } }
-              ?>
+              ?><br>
 
   
               <button type="submit" class="btn btn-dark">Sign Up</button>
@@ -367,7 +382,7 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
     if($result)
       echo "SUCCESS";
     else{
-      echo "Could not sign up. Some Fields are invalid!";
+      echo "<br><h5>Could not sign up. Some fields are invalid!</h5>";
       echo '<div class="modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
