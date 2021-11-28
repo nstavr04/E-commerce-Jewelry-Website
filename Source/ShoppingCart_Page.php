@@ -305,6 +305,7 @@ function PrintResultSet($resultSet){
     }
     echo '<td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>';
     echo ("</tr>");   
+    $cnt = 0;
   }
 }
 
