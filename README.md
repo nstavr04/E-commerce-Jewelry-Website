@@ -1,4 +1,5 @@
-# Pile of Jewelry - Jewelry Shop Website - epl343.winter21.team2 
+# Pile of Jewelry
+# Jewelry Shop Website - epl343.winter21.team2 
 ## About
 The website for the online jewelry store "Pile Of Jewelry" (Prototype Version).
 
@@ -9,7 +10,7 @@ For this assignment, different web design technologies where used, such as HTML,
 ## Features
 This website was designed to be an online jewelry shop, where the owner can sell its products online. The features were specified by the client during the semester. This is a prototype where most of its fuctions are fully operational. Its features consist of:
 
-### Customers' features:
+### Customers features:
 1. Browse products of the shop by filtering the products into categories by type of product.
 2. Viewing a product's information such as price, images and name.
 3. Viewing a gift guide for gift recomendations.
@@ -20,7 +21,7 @@ This website was designed to be an online jewelry shop, where the owner can sell
 8. Customer can reset his password
 9. Viewing information about the shop usig the Conact Us, About Us and FAQ pages.
 
-### Admin's features:
+### Admins features:
 1. Login as administrator.
 2. View the total number of users,products and orders of the shop.
 3. Add,Edit or Delete products from the shop.
@@ -37,15 +38,17 @@ The administrator logs into her page to edit/add/delete products by the account 
 
 ## Login
 For the purposes of the demonstration we hard-coded two users with the following user credentials:
+```
+Normal registered user-customer:  
+username: user@email.com  
+password: 123 
+```
 
-Normal registered user-customer:
-username: user@email.com
-password: 123
-
-Account with admin privileges:
-username: admin@email.com
-password: 12345
-
+```
+Account with admin privileges:  
+username: admin@email.com  
+password: 12345  
+```
 ## Supported Devices:
 We tested our website on:
 1. Computers
