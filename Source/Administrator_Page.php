@@ -20,6 +20,16 @@
 
     <title>Admin Panel</title>
 
+    <!-- Styling for the nav-pills -->
+    <style>
+          .nav-pills .nav-link.active {
+          background-color: #212529;
+          }
+          .nav-link{
+            color: #212529;
+          }
+    </style>
+
 </head>
 
 <body style="background-color: #eaccad;">
@@ -40,7 +50,7 @@
         </nav>
       </section>
 
-    <div class="d-flex align-items-start pt-3">
+    <div class="d-flex align-items-start py-3">
       <!-- The sidebar setting each button to a corresponding content with a js plugin -->
       <div class="nav flex-column nav-pills text-info me-3 ms-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <button class="nav-link active" id="v-pills-products-tab" data-bs-toggle="pill" data-bs-target="#v-pills-products" type="button" role="tab" aria-controls="v-pills-products" aria-selected="true">Products</button>
@@ -84,7 +94,7 @@
                     <h5 class="card-header">List of registered products in store</h5>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" style="text-align: center">
                                 <thead>
                                   <tr>
                                     <th scope="col">Product Code</th>
@@ -92,76 +102,19 @@
                                     <th scope="col">Description</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Category</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <th scope="row">1</th>
-                                    <!-- <td>Stainless Steel Ring</td>
-                                    <td>Description of item...</td>
-                                    <td>€50</td>
-                                    <td>Ring</td> -->
                                     <?php
                                          $query = "SELECT Pid,PName,Descr,Price,Category FROM PRODUCTS";
                                          $results = sqlsrv_query($conn,$query);
                                          PrintResultSet($results);
-
-
-                                    ?>                                                                    
-                                  <!-- </tr>
-                                  <tr>
-                                    <th scope="row">2</th>
-                                    <td>Stainless Steel Necklace</td>
-                                    <td>Description of item...</td>
-                                    <td>€25</td>
-                                    <td>Necklace</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">3</th>
-                                    <td>Stainless Steel Amulet</td>
-                                    <td>Description of item...</td>
-                                    <td>€60</td>
-                                    <td>Amulet</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">4</th>
-                                    <td>Diamond Ring</td>
-                                    <td>Description of item...</td>
-                                    <td>€72</td>
-                                    <td>Ring</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">5</th>
-                                    <td>Lavender Scented candle</td>
-                                    <td>Description of item...</td>
-                                    <td>€15</td>
-                                    <td>Candle</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">6</th>
-                                    <td>Rose Gold anklet</td>
-                                    <td>Description of item...</td>
-                                    <td>€40</td>
-                                    <td>Anklet</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                </tbody>
-                              </table> -->
+                                    ?>
+                                  </tbody>
+                              </table>                                                                   
                         </div>
                         <!-- <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
@@ -212,7 +165,7 @@
                     <h5 class="card-header">Details of registered customers</h5>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" style="text-align:center">
                                 <thead>
                                   <tr>
                                     <th scope="col">Customer ID</th>
@@ -220,83 +173,19 @@
                                     <th scope="col">Phone</th>
                                     <th scope="col">Address</th>
                                     <th scope="col">Postal Code</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">View</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <th scope="row">1</th>
-                                    <td>sample@email.com</td>
-                                    <td>99 123456</td>
-                                    <td>10, Sample Street</td>
-                                    <td>2100</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">2</th>
-                                    <td>sample@email.com</td>
-                                    <td>99 123456</td>
-                                    <td>10, Sample Street</td>
-                                    <td>2100</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">3</th>
-                                    <td>sample@email.com</td>
-                                    <td>99 123456</td>
-                                    <td>10, Sample Street</td>
-                                    <td>2100</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">4</th>
-                                    <td>sample@email.com</td>
-                                    <td>99 123456</td>
-                                    <td>10, Sample Street</td>
-                                    <td>2100</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">5</th>
-                                    <td>sample@email.com</td>
-                                    <td>99 123456</td>
-                                    <td>10, Sample Street</td>
-                                    <td>2100</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">6</th>
-                                    <td>sample@email.com</td>
-                                    <td>99 123456</td>
-                                    <td>10, Sample Street</td>
-                                    <td>2100</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                </tbody>
+                                    <?php
+                                         $query = "SELECT Cid,Email,Phone,CAddress,PostalCode FROM CLIENTS";
+                                         $results = sqlsrv_query($conn,$query);
+                                         PrintResultSet2($results);
+                                    ?>
+                                  </tbody>                               
                               </table>
                         </div>
-                        <nav aria-label="Page navigation example">
-                          <ul class="pagination justify-content-center">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                          </ul>
-                        </nav>
-                          <a href="#" class="btn btn-block btn-dark">Add New Product</a>
                     </div>
                 </div>
             </div>
@@ -333,91 +222,27 @@
                     <h5 class="card-header">List of orders in store</h5>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" style="text-align:center">
                                 <thead>
                                   <tr>
                                     <th scope="col">Order ID</th>
                                     <th scope="col">Products</th>
-                                    <th scope="col">Customer</th>
+                                    <th scope="col">Customer ID</th>
                                     <th scope="col">Order Cost</th>
                                     <th scope="col">Order Date</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">View</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <th scope="row">1</th>
-                                    <td>Ring, Jewelry, Anklet...</td>
-                                    <td>sample@email.com</td>
-                                    <td>€60</td>
-                                    <td>Aug 31 2021</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">2</th>
-                                    <td>Ring, Jewelry, Anklet...</td>
-                                    <td>sample@email.com</td>
-                                    <td>€80</td>
-                                    <td>Aug 28 2021</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">3</th>
-                                    <td>Ring, Jewelry, Anklet...</td>
-                                    <td>sample@email.com</td>
-                                    <td>€95</td>
-                                    <td>Aug 31 2021</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">4</th>
-                                    <td>Ring, Jewelry, Anklet...</td>
-                                    <td>sample@email.com</td>
-                                    <td>€23</td>
-                                    <td>Aug 28 2021</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">5</th>
-                                    <td>Ring, Jewelry, Anklet...</td>
-                                    <td>sample@email.com</td>
-                                    <td>€40</td>
-                                    <td>Aug 31 2021</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">6</th>
-                                    <td>Ring, Jewelry, Anklet...</td>
-                                    <td>sample@email.com</td>
-                                    <td>€120</td>
-                                    <td>Aug 28 2021</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
-                                </tbody>
+                                    <?php
+                                         $query = "SELECT Oid,ItemsNum,Cid,OrderCost,OrderDate FROM ORDERS";
+                                         $results = sqlsrv_query($conn,$query);
+                                         PrintResultSet3($results);
+                                    ?>
+                                  </tbody>                               
                               </table>
                         </div>
-                        <nav aria-label="Page navigation example">
-                          <ul class="pagination justify-content-center">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                          </ul>
-                        </nav>
-                          <a href="#" class="btn btn-block btn-dark">Add New Product</a>
                     </div>
                 </div>
             </div>
@@ -449,17 +274,32 @@ function ReturnSingleResult($resultSet){
 }
 
 // Result set function for the tables of the admin panel
-function PrintResultSet($resultSet)
-{
-  echo ("<table><tr >");
+// Used for products
+function PrintResultSet($resultSet){
 
-  foreach (sqlsrv_field_metadata($resultSet) as $fieldMetadata) {
-    echo ("<th>");
-    echo $fieldMetadata["Name"];
-    echo ("</th>");
+  $cnt = 0;
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    echo ("<tr>");
+    foreach ($row as $col) {
+      $cnt++;
+      echo ("<td>");
+      // For the price
+      if($cnt == 4)
+        echo (is_null($col) ? "Null" : number_format((float)$col, 2, '.', ''));
+      else
+        echo (is_null($col) ? "Null" : $col);
+      echo ("</td>");
+    }
+    echo '<td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
+          <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>';
+    echo ("</tr>");
+    $cnt = 0;
+    
   }
-  echo ("</tr>");
+}
 
+// Used for customers
+function PrintResultSet2($resultSet){
 
   while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
     echo ("<tr>");
@@ -468,14 +308,31 @@ function PrintResultSet($resultSet)
       echo (is_null($col) ? "Null" : $col);
       echo ("</td>");
     }
-    echo '<td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-          <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-          <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>';
-    echo ("</tr>");
-    
+    echo '<td><a href="#" class="btn btn-sm btn-dark">View</a></td>';
+    echo ("</tr>");   
   }
-  echo ("</tbody>");
-  echo ("</table>");
+}
+
+//Used for orders
+function PrintResultSet3($resultSet){
+  $cnt = 0;
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    echo ("<tr>");
+    foreach ($row as $col) {
+      $cnt++;
+      echo ("<td>");
+      //For cost
+      if($cnt == 4)
+        echo (is_null($col) ? "Null" : number_format((float)$col, 2, '.', ''));
+      else if($cnt == 5)
+        echo (is_null($col) ? "Null" : date_format($col, 'Y-m-d'));
+      else
+        echo (is_null($col) ? "Null" : $col);
+      echo ("</td>");
+    }
+    echo '<td><a href="#" class="btn btn-sm btn-dark">View</a></td>';
+    echo ("</tr>");   
+  }
 }
                                   
 ?>
