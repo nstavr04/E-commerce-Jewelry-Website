@@ -22,8 +22,6 @@ if (isset($_POST['reset-password'])) {
         array_push($errors, "Sorry, no user exists on our system with that email");
     }
 
-    //echo $ResetEmail;
-
     // Generating a random token for the user
     $token = bin2hex(random_bytes(50));
 

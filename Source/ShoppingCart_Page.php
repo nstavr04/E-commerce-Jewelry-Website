@@ -96,15 +96,10 @@ include 'dbconnection.php';
               echo "</li>";
               echo "</ul>";
             }
-
-
             ?>
 
-
             <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
-
             <?php
-
             if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE) {
               echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
               <li><a class="navbar-brand" href="ShoppingCart_Page.php"
@@ -148,9 +143,7 @@ include 'dbconnection.php';
     </nav>
   </section>
 
-
   <h1 class="shoppingCartTitle">Shopping Cart</h1>
-
 
   <!-- class="table table-striped" -->
   <!-- table-bordered -->
@@ -194,12 +187,6 @@ include 'dbconnection.php';
         ?>
     </tbody>
   </table>
-
-  <!-- <div class="shoppingCartTotal">
-    <h4 class="p-price">Total: €15</h4>
-  </div>
-  <button class="btn btn-dark shoppingCartProceed" type="button">Proceed to Check Out</button> -->
-
 
   <!-- This section is the bottom part -->
   <section id="MainBottom" style="background-color: #eaccad;">
@@ -267,7 +254,6 @@ include 'dbconnection.php';
     </footer>
   </section>
 
-  <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 

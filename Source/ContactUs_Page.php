@@ -151,7 +151,6 @@
         </nav>
     </section>
 
-
     <main style="margin: 5%;">
         <div class="card" style="max-width: 1000px; font-size: 36px; font-weight: 100; line-height: 250%; margin: auto;">
             <div class="row g-0">

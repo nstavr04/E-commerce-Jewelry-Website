@@ -66,8 +66,6 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
 }
 
 
-
-
 function PrintResultSet($resultSet)
 {
   echo ("<table><tr >");
@@ -125,8 +123,6 @@ function ReturnSingleResult($resultSet)
   }
 }
 
-
-
 //Read Product
 function queryP($Pid, $columName)
 {
@@ -145,7 +141,6 @@ function queryP($Pid, $columName)
   // return sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
   // return $getResults;
 }
-
 
 //Read Product
 function queryMainUrl($Pid)
@@ -166,8 +161,6 @@ function queryMainUrl($Pid)
   // return $getResults;
 }
 
-
-
 //return the number of the products in our Products table
 function getProductsCount()
 {
@@ -183,8 +176,6 @@ function getCategory($pid)
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   return $getResults;
 }
-
-
 
 function FormatErrors($errors)
 {
@@ -390,7 +381,6 @@ function FormatErrors($errors)
           echo  '<img class="img-fluid mb-3" src="' . $tempLink . '" alt="Image of an anklet"/>
           </a>';
 
-
           echo  '<h5 class="p-name">';
           echo $tempName;
           echo '</h5>';
@@ -408,8 +398,6 @@ function FormatErrors($errors)
           echo '</div>';
         }
       }
-
-
       ?>
 
       <!-- modal -->
@@ -426,10 +414,6 @@ function FormatErrors($errors)
           </div>
         </div>
       </div>
-
-
-
-
 
     </div>
 

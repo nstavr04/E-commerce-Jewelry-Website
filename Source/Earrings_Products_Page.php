@@ -27,7 +27,6 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
   $pid = $_POST['ProductAdded'];
   echo $userCid;
 
-
   // get-select the price of the product added
   $tsql = "SELECT Price FROM PRODUCTS WHERE Pid=$pid";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
@@ -60,11 +59,8 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   print_r($getResults);
 
-
-
   $_POST['ProductAdded'] = "DONE";
 }
-
 
 function PrintResultSet($resultSet)
 {
@@ -123,8 +119,6 @@ function ReturnSingleResult($resultSet)
   }
 }
 
-
-
 //Read Product
 function queryP($Pid, $columName)
 {
@@ -143,7 +137,6 @@ function queryP($Pid, $columName)
   // return sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
   // return $getResults;
 }
-
 
 //Read Product
 function queryMainUrl($Pid)
@@ -164,8 +157,6 @@ function queryMainUrl($Pid)
   // return $getResults;
 }
 
-
-
 //return the number of the products in our Products table
 function getProductsCount()
 {
@@ -181,8 +172,6 @@ function getCategory($pid)
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   return $getResults;
 }
-
-
 
 function FormatErrors($errors)
 {
@@ -275,7 +264,6 @@ function FormatErrors($errors)
             </li>
             <?php
 
-
             // Login or Account
             if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE) {
               echo "<li class='nav-item'>";
@@ -288,15 +276,11 @@ function FormatErrors($errors)
               echo "</li>";
               echo "</ul>";
             }
-
-
             ?>
 
 
             <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
-
             <?php
-
             if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE) {
               echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
               <li><a class="navbar-brand" href="ShoppingCart_Page.php"
@@ -387,7 +371,6 @@ function FormatErrors($errors)
           echo  '<img class="img-fluid mb-3" src="' . $tempLink . '" alt="Image of an anklet"/>
           </a>';
 
-
           echo  '<h5 class="p-name">';
           echo $tempName;
           echo '</h5>';
@@ -405,8 +388,6 @@ function FormatErrors($errors)
           echo '</div>';
         }
       }
-
-
       ?>
 
       <!-- modal -->
@@ -423,9 +404,6 @@ function FormatErrors($errors)
           </div>
         </div>
       </div>
-
-
-
 
     </div>
 

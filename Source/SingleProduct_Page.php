@@ -327,7 +327,6 @@ function getCategory($pid)
           <option>rose gold</option>
           </select> -->
 
-
         <input type="number" value="1" min="1" />
         <button type="buy-btn" class="btn btn-dark">Add to Cart</button>
         <h4 class="mt-5 mb-5">Product details</h4>

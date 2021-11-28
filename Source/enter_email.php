@@ -96,15 +96,10 @@
               echo "</li>";
               echo "</ul>";
             }
-
-
             ?>
 
-
-            <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
-            
+            <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->       
             <?php
-
               if(!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE){
                 echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
               <li><a class="navbar-brand" href="ShoppingCart_Page.php"

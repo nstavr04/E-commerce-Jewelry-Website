@@ -1,16 +1,6 @@
 <?php
-
-//if (session_status() == PHP_SESSION_NONE) {
   session_start();
   include 'dbconnection.php';
-  
-//}
-
-
-
-// if(!isset($_SESSION['LoggedInUser']))
-//   $_SESSION['LoggedInUser'] = FALSE;
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -90,7 +80,6 @@
             </li>
 
             <?php
-
                 
             // Login or Account
             if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE) {
@@ -105,15 +94,11 @@
               echo "</li>";
               echo "</ul>";
             }
-
-
             ?>
 
 
-            <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
-            
+            <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->          
             <?php
-
               if(!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE){
                 echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
               <li><a class="navbar-brand" href="ShoppingCart_Page.php"
@@ -148,8 +133,7 @@
               </ul>';
               }
 
-            ?>
-            
+            ?>            
 
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

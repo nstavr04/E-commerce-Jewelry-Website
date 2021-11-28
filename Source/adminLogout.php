@@ -10,8 +10,8 @@ $_SESSION['Admin'] = FALSE;
 
 <html>
 
-    <script type="text/javascript">
+<script type="text/javascript">
     window.location.href = 'index.php';
-    </script>
+</script>
 
 </html>
