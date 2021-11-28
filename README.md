@@ -32,7 +32,7 @@ This website was designed to be an online jewelry shop, where the owner can sell
 
 ### Account features:
 Users can sign up to create an account in order to add items to their cart and place an order. They can sign up by using the Account page and entering their information. That information is saved in our database. The user information gets validated, such as a unique valid email address, confirm password, etc. Also, their password is encrypted in our database using md5 encyprion. 
-Users can log in to their account by using the Account page too, by inserting their email and password they signed up with. In case they forget their password they can reset it. The system will send an email for the reset process
+Users can log in to their account by using the Account page too, by inserting their email and password they signed up with. In case they forget their password they can reset it. The system will send an email for the reset process.
 
 The administrator logs into her page to edit/add/delete products by the account page when she logs in with her unique administrator email and password.
 
@@ -55,7 +55,7 @@ We tested our website on:
 2. Smartphones
 3. Tablets
 
-* The website is responsive for smaller devices as wel
+* The website is responsive for smaller devices as well
 
 ## Supported Browsers:
 We tested our website on:
@@ -89,13 +89,13 @@ You can add all the .dll files in the directory but only the 2 ones above are ne
 extension=php_pdo_sqlsrv_80_ts_x64.dll
 extension=php_sqlsrv_80_ts_x64.dll
 ```
-are added in the php.ini file of xampp in the extensions location
+are added in the php.ini file of xampp in the extensions location.
 
 * Lastly we need to change the DocumentRoot and Directory inside the httpd.conf file of xampp to have the path of our project.
 
 * The webserver by default runs on port 80 but we can change the port as we like in httpd.conf
 
-* After these steps, if we open xampp and start the Apache web server, typing `http://localhost:8081` will take us in our index page in our project directory that we set.
+* After these steps, if we open xampp and start the Apache web server, typing `http://localhost:80` will take us in our index page in our project directory that we set.
 
 ## Password Reset
 
