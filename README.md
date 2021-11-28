@@ -6,10 +6,6 @@ It was implemented as part of the final project for lesson EPL343: Software Engi
 
 For this assignment, different web design technologies where used, such as HTML, CSS, PHP and Bootstrap.
 
-## Installation
-
-To be added
-
 ## Features
 This website was designed to be an online jewelry shop for your client, where the shop can sell its products online. The features were specified by the client during the semester. This is a prototype where most of its fuctions are fully operational. Its features consist of:
 
@@ -47,3 +43,8 @@ We tested our website on:
 1. Google Chrome
 2. Mozilla Firefox
 3. Microsoft Edge
+4. Brave
+
+## Installation
+
+To be added

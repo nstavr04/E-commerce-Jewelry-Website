@@ -313,17 +313,20 @@ function getCategory($pid)
         PrintResult($res);
         echo '</h3>';
         //echo '<h3 class="py-4">Gold Necklace</h3>';
-        echo '<h2>';
+        echo '<h2 class="mb-5">';
         echo '€';
         $res = queryP($ID, "Price");
         PrintResultFloatNumber($res);
         echo '</h2>';
         ?>
-        <select class="my-3" id="">
+        <!-- Maybe for future use
+
+          <select class="my-3" id="">
           <option>silver</option>
           <option>gold</option>
           <option>rose gold</option>
-        </select>
+          </select> -->
+
 
         <input type="number" value="1" min="1" />
         <button type="buy-btn" class="btn btn-dark">Add to Cart</button>
