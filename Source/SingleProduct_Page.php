@@ -91,7 +91,7 @@ function queryMainUrl($Pid)
 
 function queryUrls($Pid)
 {
-  $tsql = "SELECT Link FROM URLANDP WHERE Pid={$Pid} AND MAIN=0";
+  $tsql = "SELECT Link FROM URLANDP WHERE Pid={$Pid}";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
 
   // echo "Executing query: " . $tsql . "<br/>";
@@ -274,17 +274,18 @@ function getCategory($pid)
             foreach ($row as $col) {
               echo '<div class="small-img-col">';
               echo '<img';
-              echo 'class="small-img"';
-              echo 'src=" ' . $col . '"';
-              echo 'width="100%"';
-              echo 'height="90%"';
-              echo 'alt="Pic"';
+              echo ' class="small-img"';
+              echo ' src=" ' . $col . '"';
+              echo ' width="100%"';
+              echo ' height="90%"';
+              echo ' alt="Pic"';
               echo '/>';
               echo '</div>';
             }
           }
           ?>
         </div>
+        
       </div>
 
       <div class="text col-lg-6 col-md-12 col-12">
