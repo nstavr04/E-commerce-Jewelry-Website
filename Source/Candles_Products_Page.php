@@ -351,49 +351,63 @@ function FormatErrors($errors)
 
     <div class="row mx-auto container">
 
-      <?php
+    <?php
       $temp = getProductsCount();
       $numOfProducts = ReturnSingleResult($temp);
 
+      $arrayProducts = array(); //[i][0] = Pid, [i][1] = Cat, [i][2] = Price, [i][3] = Link, [i][4] = Name
 
+      $tsql = "SELECT P.Pid,P.Category,P.Price,U.Link,P.PName FROM PRODUCTS P INNER JOIN URLANDP U ON P.Pid=U.Pid WHERE U.Main=1";
+      $resultSet = sqlsrv_query($_SESSION["conn"], $tsql);
+      $cnt = 0;
+      $rowIndex = 0;
 
-      for ($i = 1; $i <= $numOfProducts; $i++) {
-        $temp = getCategory($i);
-        if (ReturnSingleResult($temp) == 'c') {
+      while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+        foreach ($row as $col) {
+          if ($cnt == 2)
+          $arrayProducts[$rowIndex][$cnt] = number_format((float)$col, 2, '.', '');
+          else
+          $arrayProducts[$rowIndex][$cnt] = $col;
+          //echo $arrayProducts[$rowIndex][$cnt]; echo '<br>'; //Just to be sure.
+          $cnt++;
+          // echo (is_null($col) ? "Null" : $col);  //Just to be sure.
+        }
+        $rowIndex++;
+        $cnt=0;
+      }
 
-          $temp = queryMainUrl($i);
-          $res = ReturnSingleResult($temp);
-
-
+      for ($i = 0; $i < $numOfProducts; $i++) {
+        if ($arrayProducts[$i][1] == 'c') {
           echo '<div class="product text-center col-lg-3 col-md-4 col-12">';
+          $tempPid = $arrayProducts[$i][0];
+          $tempPrice = $arrayProducts[$i][2];
+          $tempLink = $arrayProducts[$i][3];
+          $tempName = $arrayProducts[$i][4];
+          echo "<a href='SingleProduct_Page.php?ProductID=$tempPid'>";
 
-
-          echo "<a href='SingleProduct_Page.php?ProductID=$i'>";
-
-          echo  '<img class="img-fluid mb-3" src="' . $res . '" alt="Image of a candle"/>
+          echo  '<img class="img-fluid mb-3" src="' . $tempLink . '" alt="Image of an anklet"/>
           </a>';
 
 
           echo  '<h5 class="p-name">';
-          $res = queryP($i, "PName");
-          PrintResult($res);
+          echo $tempName;
           echo '</h5>';
           echo '<h4 class="p-price">';
-          $res = queryP($i, "Price");
-          PrintResultFloatNumber($res);
+          echo $tempPrice;
           echo '</h4>';
           echo '<form action="" method="post">';
           // if the user is not logged in, the add to cart button wont work
           if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE)
-            echo '<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" name="ProductAdded" value=' . $i . '>Add to Cart</button>';
+            echo '<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" name="ProductAdded" value=' . $tempPid . '>Add to Cart</button>';
           else
-            echo '<button type="buy-btn" class="btn btn-dark" name="ProductAdded" value=' . $i . '>Add to Cart</button>';
+            echo '<button type="buy-btn" class="btn btn-dark" name="ProductAdded" value=' . $tempPid . '>Add to Cart</button>';
 
           echo '</form>';
-
           echo '</div>';
         }
       }
+
+
       ?>
 
 
