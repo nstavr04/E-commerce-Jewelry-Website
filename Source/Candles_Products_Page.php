@@ -17,8 +17,6 @@ if (isset($_SESSION["serverName"]) && isset($_SESSION["connectionOptions"])) {
   //die();
 }
 
-
-
 //Maybe this will be needed on a 'back' button
 $_SESSION['LastPageVisited'] = 'Candles_Products_Page.php';
 
@@ -62,11 +60,8 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   print_r($getResults);
 
-
-
   $_POST['ProductAdded'] = "DONE";
 }
-
 
 function PrintResultSet($resultSet)
 {
@@ -111,7 +106,6 @@ function PrintResultFloatNumber($resultSet)
   }
 }
 
-
 //Must give only 1 tuple 1 column
 function ReturnSingleResult($resultSet)
 {
@@ -124,8 +118,6 @@ function ReturnSingleResult($resultSet)
     break;
   }
 }
-
-
 
 //Read Product
 function queryP($Pid, $columName)
@@ -146,7 +138,6 @@ function queryP($Pid, $columName)
   // return $getResults;
 }
 
-
 //Read Product
 function queryMainUrl($Pid)
 {
@@ -166,8 +157,6 @@ function queryMainUrl($Pid)
   // return $getResults;
 }
 
-
-
 //return the number of the products in our Products table
 function getProductsCount()
 {
@@ -176,15 +165,12 @@ function getProductsCount()
   return $getResults;
 }
 
-
 function getCategory($pid)
 {
   $tsql = "SELECT Category FROM PRODUCTS WHERE Pid={$pid}";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   return $getResults;
 }
-
-
 
 function FormatErrors($errors)
 {
@@ -276,7 +262,6 @@ function FormatErrors($errors)
             </li>
             <?php
 
-
             // Login or Account
             if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE) {
               echo "<li class='nav-item'>";
@@ -289,15 +274,11 @@ function FormatErrors($errors)
               echo "</li>";
               echo "</ul>";
             }
-
-
             ?>
 
 
             <!-- shopping cart icon, added as a different ul to be able to change margin bottom so it does not touch search when navbar is minimized -->
-
             <?php
-
             if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE) {
               echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
               <li><a class="navbar-brand" href="ShoppingCart_Page.php"
@@ -406,10 +387,7 @@ function FormatErrors($errors)
           echo '</div>';
         }
       }
-
-
       ?>
-
 
       <!-- modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -425,8 +403,6 @@ function FormatErrors($errors)
           </div>
         </div>
       </div>
-
-
 
     </div>
 

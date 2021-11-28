@@ -5,10 +5,6 @@ session_start();
 if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE"){
     echo $_POST['ProductAdded'];
     $_POST['ProductAdded']="DONE";
-  
-  
-  
-  
   }
   
   function insertIntoCart($pid){
@@ -16,7 +12,5 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE"){
     $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
 }
 
-
 $lpv = $_SESSION['LastPageVisited'];
 echo '<a href='."$lpv";
-?>

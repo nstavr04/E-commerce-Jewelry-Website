@@ -17,7 +17,6 @@ if (isset($_SESSION["serverName"]) && isset($_SESSION["connectionOptions"])) {
   //die();
 }
 
-
 //Maybe this will be needed on a 'back' button
 $_SESSION['LastPageVisited'] = 'Anklets_Products_Page.php';
 
@@ -27,7 +26,6 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
   $userCid = $_SESSION['CartID'];
   $pid = $_POST['ProductAdded'];
   echo $userCid;
-
 
   // get-select the price of the product added
   $tsql = "SELECT Price FROM PRODUCTS WHERE Pid=$pid";
@@ -60,8 +58,6 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
   $tsql = "UPDATE CART SET TotalCost=$total WHERE CartID=$userCid";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   print_r($getResults);
-
-
 
   $_POST['ProductAdded'] = "DONE";
 }
@@ -122,8 +118,6 @@ function ReturnSingleResult($resultSet)
   }
 }
 
-
-
 //Read Product
 function queryP($Pid, $columName)
 {
@@ -142,7 +136,6 @@ function queryP($Pid, $columName)
   // return sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC);
   // return $getResults;
 }
-
 
 //Read Product
 function queryMainUrl($Pid)
@@ -163,8 +156,6 @@ function queryMainUrl($Pid)
   // return $getResults;
 }
 
-
-
 //return the number of the products in our Products table
 function getProductsCount()
 {
@@ -173,15 +164,12 @@ function getProductsCount()
   return $getResults;
 }
 
-
 function getCategory($pid)
 {
   $tsql = "SELECT Category FROM PRODUCTS WHERE Pid={$pid}";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   return $getResults;
 }
-
-
 
 function FormatErrors($errors)
 {
@@ -213,11 +201,11 @@ function getInfoForProducts()
   }
   $rowIndex++;
 }
-// number_format((float)$foo, 2, '.', '');                PRINT WITH 2 DECIMALS
+// PRINT WITH 2 DECIMALS
+// number_format((float)$foo, 2, '.', '');
 ?>
 <!doctype html>
 <html lang="en">
-
 
 <head>
   <meta charset="utf-8">
@@ -294,101 +282,54 @@ function getInfoForProducts()
             </li>
             <?php
 
-
-
-
-
             // Login or Account
-
             if (!isset($_SESSION['LoggedInUser']) ||  $_SESSION['LoggedInUser'] == FALSE) {
-
               echo "<li class='nav-item'>";
-
               echo "<a class='nav-link' href='Account_Page.php'>Account</a>";
-
               echo "</li>";
-
               echo "</ul>";
             } else if ($_SESSION['LoggedInUser'] == TRUE) {
-
               echo "<li class='nav-item'>";
-
               echo "<a class='nav-link' href='resetSession.php'>Log Out</a>";
-
               echo "</li>";
-
               echo "</ul>";
             }
 
             ?>
 
             <?php
-
-
-
             if (!isset($_SESSION['LoggedInUser']) || $_SESSION['LoggedInUser'] == FALSE) {
-
               echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
-
               <li><a class="navbar-brand" href="ShoppingCart_Page.php"
-
               data-bs-toggle="modal" data-bs-target="#exampleModal">
-
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
-
                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
-
                   </svg>
-
                 </a></li>
-
             </ul>
 
-
-
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
               <div class="modal-dialog">
-
                 <div class="modal-content">
-
                   <div class="modal-header">
-
                     <h6>Unable to access cart</h6>
-
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
                   </div>
-
                   <div class="modal-body">
-
                       To access the shopping cart you need to be logged in!
-
                   </div>
-
                 </div>
-
               </div>
-
             </div>';
             } else if ($_SESSION['LoggedInUser'] == TRUE) {
-
               echo '<ul class="nav navbar-nav navbar-right" style="margin-bottom: 0.5%;">
-
                 <li><a class="navbar-brand" href="ShoppingCart_Page.php">
-
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
-
                       <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
-
                     </svg>
-
                   </a></li>
-
               </ul>';
             }
-
-
 
             ?>
             <form class="d-flex">
@@ -399,9 +340,6 @@ function getInfoForProducts()
       </div>
     </nav>
   </section>
-
-
-
 
   <!-- Main Body -->
   <section id="Products" class="my-5 pb-5" style="background-color: #f3dbc3;">
@@ -414,7 +352,6 @@ function getInfoForProducts()
     </div>
 
     <div class="row mx-auto container">
-
 
       <?php
       $temp = getProductsCount();
@@ -430,15 +367,15 @@ function getInfoForProducts()
       while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
         foreach ($row as $col) {
           if ($cnt == 2)
-          $arrayProducts[$rowIndex][$cnt] = number_format((float)$col, 2, '.', '');
+            $arrayProducts[$rowIndex][$cnt] = number_format((float)$col, 2, '.', '');
           else
-          $arrayProducts[$rowIndex][$cnt] = $col;
+            $arrayProducts[$rowIndex][$cnt] = $col;
           //echo $arrayProducts[$rowIndex][$cnt]; echo '<br>'; //Just to be sure.
           $cnt++;
           // echo (is_null($col) ? "Null" : $col);  //Just to be sure.
         }
         $rowIndex++;
-        $cnt=0;
+        $cnt = 0;
       }
 
       for ($i = 0; $i < $numOfProducts; $i++) {
@@ -471,8 +408,6 @@ function getInfoForProducts()
           echo '</div>';
         }
       }
-
-
       ?>
 
       <!-- modal -->
@@ -490,15 +425,9 @@ function getInfoForProducts()
         </div>
       </div>
 
-
-
     </div>
 
   </section>
-
-
-
-
 
   <!-- Footer -->
   <section id="MainBottom" style="background-color: #eaccad;">
