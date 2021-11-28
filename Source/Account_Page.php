@@ -14,6 +14,21 @@ include 'dbconnection.php';
     <link href="styles/style_Account_page.css" rel="stylesheet">
     <title>Account Page</title>
 
+    <!-- Remove arrows on number input -->
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+    </style>
+
   </head>
 
   <body style="background-color: #f3dbc3;">
@@ -141,7 +156,7 @@ include 'dbconnection.php';
       </section>
 
        <!-- Account page -->
-      <div class="leftpadding">
+      <div class="leftpadding" style="margin-bottom: 18%;">
        <div class="row no-gutters">
         
         <div class="col no-gutters">
@@ -192,12 +207,18 @@ include 'dbconnection.php';
           }
           else{
             print_r(sqlsrv_errors());
-            echo '<h5 align="left" class="mt-5 mb-4 text-muted">Wrong Credentials. Please Try again.</h4>';
+            //Error Alert
+            echo '
+            <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show mt-3">
+                <i class="bi-exclamation-octagon-fill"></i>
+                <strong class="mx-2">Error!</strong> Email does not exist or password mismatch.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>';
           }
 
       }
 
-?>
+            ?>
 
             <label for="email">Email: </label><br>
             
@@ -222,76 +243,117 @@ include 'dbconnection.php';
             <form action="" method="POST">
             <h1 align="left">Sign Up</h1>
             <hr>
-
             
             <label for="email">Email: </label><br>
-            <input class="form-control" type="email" name="email" required>
+            <input class="form-control" type="email" name="email" maxlength=40 required>
             <?php
+              $errors = 0;
+
               if( isset($_POST['email']) ){
                 $Email = $_POST['email'];
                
                 $conn = $_SESSION['conn'];
                 $query = "SELECT Email FROM CLIENTS WHERE Email='$Email'";
                 $resultCheck = sqlsrv_query($conn,$query);
-                if(! $resultCheck ) {
+                if(! $resultCheck) {
                     echo "Could not get data";
                 }
-                else  if(sqlsrv_has_rows($resultCheck) > 0){ 
-                  $error_message = "There is already an account using this email address.";
-                  print "<h5> There is already an account using this email address.</h5>";
+                else  if(sqlsrv_has_rows($resultCheck) > 0){
+                  $errors++; 
+                  echo '<div class="alert alert-danger alert-dismissible d-flex align-items-center fade show mt-3">
+                  <i class="bi-exclamation-octagon-fill"></i>
+                  <strong class="mx-2">Error!</strong> Email address taken!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>';
                 } 
               }
               ?>
             <br>
    
             <label for="password">Password: </label><br>
-            <input class="form-control" type="password" name="Password" required>
+            <input class="form-control" type="password" name="Password" maxlength=16 required>
             <br>
   
             <label for="confirmPassword">Confirm Password: </label><br>
-              <input class="form-control" type="password" name="confirmPassword" required>
+              <input class="form-control" type="password" name="confirmPassword" maxlength=16 required>
               <?php
               if( isset($_POST['Password']) && isset($_POST['confirmPassword'])){
                 $CPassword = $_POST['Password'];
                 $ConfirmPassword = $_POST['confirmPassword'];
                 if( isset($_POST['Password']) && isset($_POST['confirmPassword']) && $CPassword != $ConfirmPassword){
-                  $error_message = "Passwords do not match";
-                  print "<h5> Passwords do not match.</h5>";
-                } }
+                  $errors++; 
+                  echo '<div class="alert alert-danger alert-dismissible d-flex align-items-center fade show mt-3">
+                  <i class="bi-exclamation-octagon-fill"></i>
+                  <strong class="mx-2">Error!</strong> Passwords do not match!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>';
+                } 
+              }
               ?>
               <br>
   
               <label for="firstName">First Name: </label><br>
-              <input class="form-control" type="text" name="firstName" required>
+              <input class="form-control" type="text" name="firstName" maxlength=20 required>
               <?php
               if( isset($_POST['firstName'])){
                 $FirstName = $_POST['firstName'];
                 if( isset($_POST['firstName']) && !preg_match("/^[a-zA-Z ]*$/",$FirstName) ){
-                  $error_message = "Only letters and white space allowed!";
-                  print  "<h5> Only letters are allowed in First Name.</h5>";
-                } }
+                  $errors++; 
+                  echo '<div class="alert alert-danger alert-dismissible d-flex align-items-center fade show mt-3">
+                  <i class="bi-exclamation-octagon-fill"></i>
+                  <strong class="mx-2">Error!</strong> Only letters allowed in First Name!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>';
+                } 
+              }
               ?><br>
   
               <label for="lastName">Last Name: </label><br>
-              <input class="form-control" type="text" name="lastName" required>
+              <input class="form-control" type="text" name="lastName" maxlength=20 required>
               <?php
               if( isset($_POST['lastName'])){
                 $LastName = $_POST['lastName'];
                 if( isset($_POST['lastName']) && !preg_match("/^[a-zA-Z ]*$/",$LastName) ){
-                  $error_message = "Only letters and white space allowed!";
-                  print  "<h5> Only letters are allowed in Last Name.</h5>";
-                } }
+                  $errors++; 
+                  echo '<div class="alert alert-danger alert-dismissible d-flex align-items-center fade show  mt-3">
+                  <i class="bi-exclamation-octagon-fill"></i>
+                  <strong class="mx-2">Error!</strong> Only letters allowed in Last Name!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>';
+                } 
+              }
               ?><br>
   
               <label for="phone">Phone Number: </label><br>
-              <input class="form-control" type="number" name="phone" required>
-              <?php
+              <input class="form-control" type="number" name="phone" maxlength=8 required>
+              <?php                   
+
               if( isset($_POST['phone'])){
                 $Phone = $_POST['phone'];
+
+                    $query = "SELECT Phone FROM CLIENTS WHERE Phone='$Phone'";
+                    $resultCheck = sqlsrv_query($conn,$query);
+                    if(!$resultCheck) {
+                        echo "Could not get data";
+                    }
+
                 if( isset($_POST['phone']) && (strlen ($Phone) != 8) ){
-                  $error_message = "Phone number must be 8 digits long.";
-                  print  "<h5> Phone number must be 8 digits long.</h5>";
-                } }
+                  $errors++; 
+                  echo '<div class="alert alert-danger alert-dismissible d-flex align-items-center fade show mt-3">
+                  <i class="bi-exclamation-octagon-fill"></i>
+                  <strong class="mx-2">Error!</strong> Phone number must be 8 digits long!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>';
+                }
+                else if(sqlsrv_has_rows($resultCheck) > 0){
+                  $errors++; 
+                  echo '<div class="alert alert-danger alert-dismissible d-flex align-items-center fade show mt-3">
+                  <i class="bi-exclamation-octagon-fill"></i>
+                  <strong class="mx-2">Error!</strong> Phone number already exists!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>';
+                } 
+              }
               ?>
               <br>
                 
@@ -303,28 +365,51 @@ include 'dbconnection.php';
                 <option value="Paphos">Paphos</option>
               </select>
               <?php
-              if( isset($_POST['city'])){
-                $District = $_POST['city'];
-                if( isset($_POST['city']) && !preg_match("/^[a-zA-Z ]*$/",$District) ){
-                  $error_message = "Only letters and white space allowed!";
-                  print  "<h5> Only letters are allowed in City.</h5>";
-                } }
-              ?><br>
+              // Probably unnecessary
+              // if( isset($_POST['city'])){
+              //   $District = $_POST['city'];
+              //   if( isset($_POST['city']) && !preg_match("/^[a-zA-Z ]*$/",$District) ){
+              //     $errors++; 
+              //     echo '<div class="alert alert-danger alert-dismissible d-flex align-items-center fade show mt-3">
+              //     <i class="bi-exclamation-octagon-fill"></i>
+              //     <strong class="mx-2">Error!</strong> Only letters are allowed in city!
+              //     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              // </div>';
+              //   } 
+              // }
+              ?>
+              <br>
               
               <label for="postalCode">Postal Code: </label><br>
-              <input class="form-control" type="number" name="postalCode" required>
+              <input class="form-control" type="number" name="postalCode" maxlength=4 required>
               <br>
+              <?php
+                  if( isset($_POST['postalCode']) && (strlen ($_POST['postalCode']) != 4) ){
+                      $errors++; 
+                      echo '<div class="alert alert-danger alert-dismissible d-flex align-items-center fade show mt-3">
+                      <i class="bi-exclamation-octagon-fill"></i>
+                      <strong class="mx-2">Error!</strong> Postal code needs to be 4 digits long!
+                      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  </div>';
+                }
+                ?>
   
               <label for="address">Address: </label><br>
-              <input class="form-control" type="text" name="address" required>
+              <input class="form-control" type="text" name="address" maxlength=40 required>
               <br><?php
               if( isset($_POST['address'])){
                 $CAddress = $_POST['address'];
-                if( isset($_POST['address']) && !preg_match("/^[a-zA-Z ]*$/",$CAddress) ){
-                  $error_message = "Only letters and white space allowed!";
-                  print  "<h5> Only letters are allowed in Address.</h5>";
-                } }
-              ?><br>
+                if( isset($_POST['address']) && !preg_match("/^[a-zA-Z1-9 ]*$/",$CAddress) ){
+                  $errors++; 
+                  echo '<div class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+                  <i class="bi-exclamation-octagon-fill"></i>
+                  <strong class="mx-2">Error!</strong> Only letters and numbers are allowed in Address!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>';
+                } 
+              }
+              ?>
+              <br>
 
   
               <button type="submit" class="btn btn-dark">Sign Up</button>
@@ -334,7 +419,8 @@ include 'dbconnection.php';
 
 // Register Account
 
-if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
+// Check that no errors occured
+if($errors == 0 && isset($_POST['firstName']) && isset($_POST['lastName']) &&
   isset($_POST['Password']) && isset($_POST['confirmPassword']) &&
   isset($_POST['postalCode']) && isset($_POST['address']) &&
   isset($_POST['city']) && isset($_POST['email']) &&
@@ -380,27 +466,11 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) &&
     //print_r(sqlsrv_errors());
 
     if($result)
-      echo "SUCCESS";
-    else{
-      echo "<br><h5>Could not sign up. Some fields are invalid!</h5>";
-      echo '<div class="modal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Modal body text goes here.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>';
-    }
+      echo '<div class="alert alert-success alert-dismissible d-flex align-items-center fade show mt-3">
+      <i class="bi-check-circle-fill"></i>
+      <strong class="mx-2">Success!</strong> Your account has been registered! Please Sign In.
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+         </div>';
 
 }
 

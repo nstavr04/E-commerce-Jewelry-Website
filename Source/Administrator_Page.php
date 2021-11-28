@@ -98,14 +98,18 @@
                                 <tbody>
                                   <tr>
                                     <th scope="row">1</th>
-                                    <td>Stainless Steel Ring</td>
+                                    <!-- <td>Stainless Steel Ring</td>
                                     <td>Description of item...</td>
                                     <td>€50</td>
-                                    <td>Ring</td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">View</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
-                                    <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
-                                  </tr>
+                                    <td>Ring</td> -->
+                                    <?php
+                                         $query = "SELECT Pid,PName,Descr,Price,Category FROM PRODUCTS";
+                                         $results = sqlsrv_query($conn,$query);
+                                         PrintResultSet($results);
+
+
+                                    ?>                                                                    
+                                  <!-- </tr>
                                   <tr>
                                     <th scope="row">2</th>
                                     <td>Stainless Steel Necklace</td>
@@ -157,9 +161,9 @@
                                     <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>
                                   </tr>
                                 </tbody>
-                              </table>
+                              </table> -->
                         </div>
-                        <nav aria-label="Page navigation example">
+                        <!-- <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -167,7 +171,7 @@
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
                             <li class="page-item"><a class="page-link" href="#">Next</a></li>
                           </ul>
-                        </nav>
+                        </nav> -->
                           <a href="#" class="btn btn-block btn-dark">Add New Product</a>
                     </div>
                 </div>
@@ -443,6 +447,37 @@ function ReturnSingleResult($resultSet){
     break;
   }
 }
+
+// Result set function for the tables of the admin panel
+function PrintResultSet($resultSet)
+{
+  echo ("<table><tr >");
+
+  foreach (sqlsrv_field_metadata($resultSet) as $fieldMetadata) {
+    echo ("<th>");
+    echo $fieldMetadata["Name"];
+    echo ("</th>");
+  }
+  echo ("</tr>");
+
+
+  while ($row = sqlsrv_fetch_array($resultSet, SQLSRV_FETCH_ASSOC)) {
+    echo ("<tr>");
+    foreach ($row as $col) {
+      echo ("<td>");
+      echo (is_null($col) ? "Null" : $col);
+      echo ("</td>");
+    }
+    echo '<td><a href="#" class="btn btn-sm btn-dark">View</a></td>
+          <td><a href="#" class="btn btn-sm btn-dark">Edit</a></td>
+          <td><a href="#" class="btn btn-sm btn-dark">Delete</a></td>';
+    echo ("</tr>");
+    
+  }
+  echo ("</tbody>");
+  echo ("</table>");
+}
+                                  
 ?>
 
     
