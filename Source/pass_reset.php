@@ -174,12 +174,13 @@
             <input type="password" name="pass_reset" required>
             <br><br>
 
-            <label for="email">Confirm New Password: </label><br>
+            <!-- <label for="email">Confirm New Password: </label><br>
             <input type="password" name="pass_reset_c" required>
-            <br><br>
+            <br><br> -->
         
             <button type="submit" name="new_password" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">Submit</button>
             </form>
+
           </div>
         </div>
         

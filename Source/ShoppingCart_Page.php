@@ -170,7 +170,7 @@ include 'dbconnection.php';
         <?php
         $Cid=$_SESSION['CartID'];
         $query = "SELECT  Link,PName,ProductQuantity,P.Price
-        FROM PRODUCTS P INNER JOIN CONTAINSOP C ON P.Pid=C.Pid
+        FROM PRODUCTS P INNER JOIN CONTAINSCP C ON P.Pid=C.Pid
         INNER JOIN URLANDP U ON P.Pid=U.Pid
         WHERE C.CartID=$Cid AND U.Main=1;";
         $results = sqlsrv_query($conn, $query);

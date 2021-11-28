@@ -33,19 +33,19 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   $price = ReturnSingleResult($getResults);
 
-  //this is checking if the product already exists in the CONTAINSOP table
-  $tsql = "SELECT ProductQuantity FROM CONTAINSOP WHERE Pid=$pid AND CartID=$userCid";
+  //this is checking if the product already exists in the CONTAINSCP table
+  $tsql = "SELECT ProductQuantity FROM CONTAINSCP WHERE Pid=$pid AND CartID=$userCid";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql, array(), array("Scrollable" => 'keyset'));
   $row = sqlsrv_num_rows($getResults);
   if ($row == 1) {
     $currentQuantity = ReturnSingleResult($getResults);
     $currentQuantity = $currentQuantity + 1;
     //product is already in the cart so we need to update its quantity
-    $tsql = "UPDATE CONTAINSOP SET ProductQuantity=$currentQuantity WHERE CartID=$userCid AND Pid=$pid";
+    $tsql = "UPDATE CONTAINSCP SET ProductQuantity=$currentQuantity WHERE CartID=$userCid AND Pid=$pid";
     $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   } else {
     //Add it to the table
-    $tsql = "INSERT INTO CONTAINSOP (Pid,CartID,Price,ProductQuantity) VALUES($pid,$userCid,$price,1)";
+    $tsql = "INSERT INTO CONTAINSCP (Pid,CartID,Price,ProductQuantity) VALUES($pid,$userCid,$price,1)";
     $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
   }
   //update the totalCostOf the cart
