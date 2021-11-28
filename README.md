@@ -61,15 +61,15 @@ We tested our website on:
 3. Microsoft Edge
 4. Brave
 
-## Installation
+# Installation
 
 * Tested in Windows 10
 
-# Database
+## Database
 
 * The website is connected to an Azure SQL database. The latest PHP and ODBC drivers for MS SERVER need to be installed to have a functional database.
 
-# Web Server
+## Web Server
 
 * The website is running locally using XAMPP. The latest version of XAMPP needs to be installed (PHP v8.0 included). 
 Make sure to install XAMPP directly in the C: disk and not inside any Program files directory for it to properly work.
@@ -94,6 +94,6 @@ are added in the php.ini file of xampp in the extensions location
 
 * After these steps, if we open xampp and start the Apache web server, typing `http://localhost:8081` will take us in our index page in our project directory that we set.
 
-# Password Reset
+## Password Reset
 
 * For the password reset to work, we can download a Test Mail Server Tool since an email is send locally to the user. The Mail Server listens by default on port 25. XAMPP does not need any further adjustments to work with the Mail Server, we just need to have the Mail Server running in the background.
