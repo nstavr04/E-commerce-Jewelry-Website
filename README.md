@@ -1,4 +1,4 @@
-# Pile of Jewelry Website - epl343.winter21.team2 
+# Pile of Jewelry - Jewelry Shop Website - epl343.winter21.team2 
 ## About
 The website for the online jewelry store "Pile Of Jewelry" (Prototype Version).
 
