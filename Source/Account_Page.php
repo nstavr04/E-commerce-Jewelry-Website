@@ -203,10 +203,6 @@ $_SESSION['errors'] = 0;
             <h1 align="left">Sign Up</h1>
             <hr>
 
-            <?php
-            RegSuccess();
-            ?>
-
             <label for="email">Email: </label><br>
             <input class="form-control" type="email" name="email" maxlength=40 required>
 
@@ -291,6 +287,7 @@ $_SESSION['errors'] = 0;
 
           <?php
           ValidCheck();
+          RegSuccess();
           ?>
 
         </div>
@@ -605,8 +602,8 @@ function ValidCheck()
     //Debugging
     //print_r(sqlsrv_errors());
 
-    if ($result != FALSE)
-      $_SESSION['Registered'] = TRUE;
+    // if ($result != FALSE)
+       $_SESSION['Registered'] = TRUE;
   }
 }
 
