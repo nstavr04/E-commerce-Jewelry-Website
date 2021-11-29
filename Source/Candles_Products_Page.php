@@ -373,7 +373,7 @@ function FormatErrors($errors)
           echo  '<h5 class="p-name">';
           echo $tempName;
           echo '</h5>';
-          echo '<h4 class="p-price">';
+          echo '<h4 class="p-price"> €';
           echo $tempPrice;
           echo '</h4>';
           echo '<form action="" method="post">';
