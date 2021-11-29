@@ -22,10 +22,10 @@ $_SESSION['LastPageVisited'] = 'Candles_Products_Page.php';
 
 //Adding to cart when necessary and then changing the post value so the product isnt added when user press F5
 if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
-  echo $_POST['ProductAdded'];
+  //echo $_POST['ProductAdded'];
   $userCid = $_SESSION['CartID'];
   $pid = $_POST['ProductAdded'];
-  echo $userCid;
+  //echo $userCid;
 
 
   // get-select the price of the product added
@@ -58,7 +58,7 @@ if (isset($_POST['ProductAdded']) && $_POST['ProductAdded'] != "DONE") {
   //update the table value of the total cost
   $tsql = "UPDATE CART SET TotalCost=$total WHERE CartID=$userCid";
   $getResults = sqlsrv_query($_SESSION["conn"], $tsql);
-  print_r($getResults);
+  //print_r($getResults);
 
   $_POST['ProductAdded'] = "DONE";
 }
